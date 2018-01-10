@@ -35,6 +35,8 @@ class ViewController: UIViewController {
         urlBar.textField.text = "https://www.thestar.com"
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadProgressUpdate), name: LoadProgressNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(canGoForwardUpdate), name: CanGoForwardNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(canGoBackUpdate), name: CanGoBackNotification, object: nil)
     }
     
     func setStyling() {
@@ -86,6 +88,20 @@ extension ViewController {
                     })
                 }
             })
+        }
+    }
+}
+
+extension ViewController {
+    
+    @objc func canGoForwardUpdate(_ notification: Notification) {
+        if let value = notification.userInfo?["value"] {
+            debugPrint("canGoForward - \(value)")
+        }
+    }
+    @objc func canGoBackUpdate(_ notification: Notification) {
+        if let value = notification.userInfo?["value"] {
+            debugPrint("canGoBack - \(value)")
         }
     }
 }

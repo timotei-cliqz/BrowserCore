@@ -7,40 +7,39 @@
 //
 
 import UIKit
+import WebKit
 
 let LoadProgressNotification = Notification.Name(rawValue: "LoadProgressNotification")
+let CanGoBackNotification = Notification.Name("CanGoBackNotification")
+let CanGoForwardNotification = Notification.Name("CanGoForwardNotification")
 
 class CustomWebView: UIWebView {
     
+    //Possible notifications of interest - DataDetectorsUIDidFinishURLificationNotification
+    
+    fileprivate var _last_canGoBack: Bool = false
+    fileprivate var _last_canGoForward: Bool = false
+    
+    var timer: Timer = Timer()
+    
+    lazy var backForwardList: WebViewBackForwardList = { return WebViewBackForwardList.init(webView: self) }()
+    
     let internalProgressChangedNotification = "WebProgressEstimateChangedNotification"
+    let historyItemsAddedNotification = "WebHistoryItemsAddedNotification"
     
-    var removeProgressObserversOnDeinit: ((UIWebView) -> Void)?
-    
-    var progress: WebViewProgress?
-    fileprivate var _estimatedProgress: Double = 0
-    var estimatedProgress: Double {
-        get {
-            return _estimatedProgress
-        }
-        
-        set {
-            debugPrint("estimated progress \(newValue)")
-            _estimatedProgress = newValue
-            NotificationCenter.default.post(name: LoadProgressNotification, object: nil, userInfo: ["progress": newValue])
-        }
+    override var canGoBack: Bool {
+        return self.backForwardList.backCount() ?? 0 > 0
     }
     
-    override var isLoading: Bool {
-        get {
-            return estimatedProgress > 0 && estimatedProgress < 0.99
-        }
+    override var canGoForward: Bool {
+        return self.backForwardList.forwardCount() ?? 0 > 0
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.delegate = self
         
-        progress = WebViewProgress(parent: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(historyAdded), name: NSNotification.Name(rawValue: historyItemsAddedNotification), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,9 +47,21 @@ class CustomWebView: UIWebView {
     }
     
     deinit {
-        self.removeProgressObserversOnDeinit?(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
+    @objc func historyAdded(_ notification: Notification) {
+        //debugPrint("history added - \(notification)")
+        if let historyItems = notification.userInfo?["WebHistoryItems"] as? NSArray {
+            for item in historyItems {
+                let i = item as AnyObject
+                if let url = i.value(forKey: "URL") as? NSURL {
+                    debugPrint("history added:\nurl = \(url) | backCount = \(String(describing: self.backForwardList.backCount())) | forwCount =\(String(describing: self.backForwardList.forwardCount()))")
+                }
+            }
+            self.broadcastWebViewValues()
+        }
+    }
     
 }
 
@@ -66,20 +77,6 @@ extension CustomWebView {
         super.loadRequest(request)
     }
     
-    override func reload() {
-        progress?.setProgress(0.3)
-        URLCache.shared.removeAllCachedResponses()
-        URLCache.shared.diskCapacity = 0
-        URLCache.shared.memoryCapacity = 0
-        
-        super.reload()
-    }
-    
-    override func stopLoading() {
-        super.stopLoading()
-        self.progress?.reset()
-    }
-    
 }
 
 //MARK: - Progress
@@ -87,46 +84,41 @@ extension CustomWebView {
     
     @objc func internalProgressNotification(_ notification: Notification) {
         if let prog = notification.userInfo?["WebProgressEstimatedProgressKey"] as? Double {
-            debugPrint("progress - \(prog)")
-            if prog > 0.99 {
-                loadingCompleted()
-                debugPrint("loading done")
-                return
-            }
-            
-            if prog > self.estimatedProgress || prog == 0.0 || prog == 0.99 {
-                //progress?.setProgress(prog)
-            }
+            //debugPrint("progress - \(prog)")
+            NotificationCenter.default.post(name: LoadProgressNotification, object: nil, userInfo: ["progress": prog])
         }
     }
-    
-    func loadingCompleted() {
-        
-    }
+
 }
 
 extension CustomWebView: UIWebViewDelegate {
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        
-//        if url.host == "itunes.apple.com" {
-//            progress?.completeProgress()
-//            return false
-//        }
-        
+        broadcastWebViewValues()
         return true
     }
     
     func webViewDidStartLoad(_ webView: UIWebView) {
-        //progress?.webViewDidStartLoad()
+        broadcastWebViewValues()
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        let readyState = stringByEvaluatingJavaScript(from: "document.readyState.toLowerCase()")
-        //progress?.webViewDidFinishLoad(readyState)
+        broadcastWebViewValues()
     }
     
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        //progress?.didFailLoadWithError()
+        broadcastWebViewValues()
+    }
+    
+    func broadcastWebViewValues() {
+        //if self.canGoForward != _last_canGoForward {
+            NotificationCenter.default.post(name: CanGoForwardNotification, object: nil, userInfo: ["value": self.canGoForward])
+            _last_canGoForward = self.canGoForward
+        //}
+        
+        //if self.canGoBack != _last_canGoBack {
+            NotificationCenter.default.post(name: CanGoBackNotification, object: nil, userInfo: ["value": self.canGoBack])
+            _last_canGoBack = self.canGoBack
+        //}
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7A8ABF340FD8306A06AED188 /* Pods_BrowserCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0FF73EECB19908560E1A42 /* Pods_BrowserCore.framework */; };
+		AF0A3F3D2003A16D005D6321 /* WebViewBackForwardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0A3F3C2003A16D005D6321 /* WebViewBackForwardList.swift */; };
 		AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89862B1FFF795200B372E0 /* AppDelegate.swift */; };
 		AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89862D1FFF795200B372E0 /* ViewController.swift */; };
 		AF8986311FFF795200B372E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF89862F1FFF795200B372E0 /* Main.storyboard */; };
@@ -16,12 +17,12 @@
 		AF89863E1FFF7A5900B372E0 /* CustomWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89863D1FFF7A5900B372E0 /* CustomWebView.swift */; };
 		AF8986401FFF7ED500B372E0 /* URLBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89863F1FFF7ED500B372E0 /* URLBar.swift */; };
 		AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8986411FFF7F5400B372E0 /* StateAnimator.swift */; };
-		AF8986441FFF879600B372E0 /* WebViewProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8986431FFF879600B372E0 /* WebViewProgress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E0FF73EECB19908560E1A42 /* Pods_BrowserCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrowserCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE80264CC9DEE5838052046 /* Pods-BrowserCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrowserCore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrowserCore/Pods-BrowserCore.debug.xcconfig"; sourceTree = "<group>"; };
+		AF0A3F3C2003A16D005D6321 /* WebViewBackForwardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewBackForwardList.swift; sourceTree = "<group>"; };
 		AF8986281FFF795200B372E0 /* BrowserCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrowserCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF89862B1FFF795200B372E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF89862D1FFF795200B372E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,7 +33,6 @@
 		AF89863D1FFF7A5900B372E0 /* CustomWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWebView.swift; sourceTree = "<group>"; };
 		AF89863F1FFF7ED500B372E0 /* URLBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBar.swift; sourceTree = "<group>"; };
 		AF8986411FFF7F5400B372E0 /* StateAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateAnimator.swift; sourceTree = "<group>"; };
-		AF8986431FFF879600B372E0 /* WebViewProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewProgress.swift; sourceTree = "<group>"; };
 		D775863DC09CAA8FBDEBC6FD /* Pods-BrowserCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrowserCore.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrowserCore/Pods-BrowserCore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,7 +95,7 @@
 				AF89863D1FFF7A5900B372E0 /* CustomWebView.swift */,
 				AF89863F1FFF7ED500B372E0 /* URLBar.swift */,
 				AF8986411FFF7F5400B372E0 /* StateAnimator.swift */,
-				AF8986431FFF879600B372E0 /* WebViewProgress.swift */,
+				AF0A3F3C2003A16D005D6321 /* WebViewBackForwardList.swift */,
 			);
 			path = BrowserCore;
 			sourceTree = "<group>";
@@ -223,7 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF8986441FFF879600B372E0 /* WebViewProgress.swift in Sources */,
+				AF0A3F3D2003A16D005D6321 /* WebViewBackForwardList.swift in Sources */,
 				AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */,
 				AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */,
 				AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */,
@@ -369,6 +369,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UYYSSHVUH;
 				INFOPLIST_FILE = BrowserCore/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tim.BrowserCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -385,6 +386,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UYYSSHVUH;
 				INFOPLIST_FILE = BrowserCore/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tim.BrowserCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
