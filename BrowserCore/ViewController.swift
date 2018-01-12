@@ -108,13 +108,21 @@ extension ViewController {
 extension ViewController {
     
     @objc func canGoForwardUpdate(_ notification: Notification) {
-        if let value = notification.userInfo?["value"] {
+        if let value = notification.userInfo?["value"] as? Bool{
             debugPrint("canGoForward - \(value)")
+            toolBar.forwardButton.isEnabled = value
         }
     }
     @objc func canGoBackUpdate(_ notification: Notification) {
-        if let value = notification.userInfo?["value"] {
+        if let value = notification.userInfo?["value"] as? Bool {
             debugPrint("canGoBack - \(value)")
+            toolBar.backButton.isEnabled = value
+        }
+    }
+    
+    @objc func newUrlNotification(_ notification: Notification) {
+        if let url = notification.userInfo?["url"] as? String, url != "" {
+            self.urlBar.textField.text = url
         }
     }
 }
