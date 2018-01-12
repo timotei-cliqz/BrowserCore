@@ -18,11 +18,21 @@ enum WebViewHistoryAction {
     case Replace
 }
 
+let HistoryAddNotification = "HistoryAddNotification"
+let HistoryReplaceNotification = "HistoryReplaceNotification"
+
 class WebViewBackForwardList {
+    
+    struct HistoryEntry {
+        var url: URL
+        var timestamp: Date //use this to uniquely identify an entry in the General History
+    }
     
     let historyItemsAddedNotification = "WebHistoryItemsAddedNotification"
     
     weak var webView: WebView?
+    
+    fileprivate var _last_forwardCount = 0
     
     var internalHistoryItemCount: Int {
         var totalCount = 0
@@ -34,6 +44,7 @@ class WebViewBackForwardList {
     }
     
     var mirroredHistory: [URL] = [] //the mirror is not 100% accurate. In case of branching the entries after the branching point are kept until they are replaced by new entries from the new branch. It does not have to for the history to be recorded correcly in the general history (maybe, not sure yet).
+    //actually it would be easier if I mirror the internalHistory faithfully.
     
     init(webView: WebView) {
         self.webView = webView
@@ -63,10 +74,12 @@ extension WebViewBackForwardList {
             }
             
             let item = historyItems.firstObject as AnyObject
-            let notification_url = item.value(forKey: "URL") as? URL
             
-            updateHistory(notification_url: notification_url)
-            webView?.broadcastWebViewValues()
+            if let notification_url = item.value(forKey: "URL") as? URL {
+                updateHistory(notification_url: notification_url)
+                webView?.broadcastWebViewValues()
+            }
+            
         }
         
     }
@@ -76,39 +89,68 @@ extension WebViewBackForwardList {
             return
         }
         
+        debugPrint("backCount = \(backCount) | forwardCount = \(forwardCount) | _last_forwardCount = \(_last_forwardCount) | currentItemURL = \(String(describing: self.currentItemUrl()))")
+        
         let currentItemIndex = backCount
         
-        debugPrint("currentItemIndex = \(currentItemIndex)")
+        guard notification_url != nil else {
+            //this happens in the case this method is called in webViewDidFinishLoad
+            //in historyAdded, I make sure it does not come as nil
+            //in this case, simply update (replace) the url of the current entry in the mirroredHistory. Current entry index = internalHistoryItemCount.
+            //I do this since a notification is not sent after a redirect url.
+            
+            modifyHistory(action: .Replace, url: self.currentItemUrl(), currentItemIndex: currentItemIndex)
+            _last_forwardCount = forwardCount
+            return
+        }
         
-        if currentItemIndex < mirroredHistory.count {
-            //WebViewHistoryAction = Replace
-            
-            //the underlying internal history should already be updated by this time.
-            //this way I can identify in which webView the change took place, by comparing the notification_url with the currentItem_url
-            //if they are equal, the change took place here.
-            
-            //Attention: It can happen that I have the same currentItemUrl in 2 webViews, but the change takes place only in one. Then both will see this as a Replace. This may be a problem when I send a notification about the change. We run the risk of duplication, since both webViews will emit a notification. I can probably add a filter. But I will take care of it later.
-            if notification_url == nil {
-                //this is just a simple url update.
-                modifyHistory(action: .Replace, url: self.currentItemUrl(), currentItemIndex: currentItemIndex)
+        //Branched
+        let updateThisWebViewHistory = notification_url == currentItemUrl()
+        let currentIndexInBounds = currentItemIndex > 0 && currentItemIndex < mirroredHistory.count
+        var isUrlDifferent = false
+        if currentIndexInBounds {
+            isUrlDifferent = notification_url != mirroredHistory[currentItemIndex]
+        }
+        
+        if _last_forwardCount > 0 && isUrlDifferent && currentIndexInBounds && updateThisWebViewHistory {
+            //remove everything from currentItemIndex..<mirroredHistory.count
+            let number_to_remove = (mirroredHistory.count - 1) - currentItemIndex + 1
+            if  number_to_remove >= 0 && number_to_remove <= mirroredHistory.count {
+                mirroredHistory.removeLast(number_to_remove)
             }
-            else if notification_url != nil {
+            else {
+                debugPrint("number_to_remove is wrong. Check, maybe you are missing a case.")
+            }
+            modifyHistory(action: .Add, url: notification_url, currentItemIndex: currentItemIndex)
+        }
+        else {
+        
+            if currentItemIndex < mirroredHistory.count {
+                //WebViewHistoryAction = Replace
+                
+                //the underlying internal history should already be updated by this time.
+                //this way I can identify in which webView the change took place, by comparing the notification_url with the currentItem_url.
+                //if they are equal, the change took place here.
+                
+                //Otherwise, I would update the mirroredHistory for all webViews, at their respective currentItemIndex. This would be bad.
+                
+                //Attention: It can happen that I have the same currentItemUrl in 2 webViews, but the change takes place only in one. Then both will see this as a Replace. This may be a problem when I send a notification about the change. We run the risk of duplication, since both webViews will emit a notification. I can probably add a filter. But I will take care of it later.
+                
                 if currentItemUrl() == notification_url {
                     modifyHistory(action: .Replace, url: self.currentItemUrl(), currentItemIndex: currentItemIndex)
                 }
             }
-            
-        }
-        else if currentItemIndex == mirroredHistory.count {
-            //WebViewHistoryAction = Add
-            //the currentItemIndex has advanced. 
-            modifyHistory(action: .Add, url: self.currentItemUrl(), currentItemIndex: currentItemIndex)
-        }
-        else {
-            debugPrint("Check updateHistory() in WebViewBackForwardList.")
+            else if currentItemIndex == mirroredHistory.count {
+                //WebViewHistoryAction = Add
+                //the currentItemIndex has advanced.
+                modifyHistory(action: .Add, url: self.currentItemUrl(), currentItemIndex: currentItemIndex)
+            }
+            else {
+                debugPrint("Check updateHistory() in WebViewBackForwardList.")
+            }
         }
         
-        debugPrint("internalHistory = \(mirroredHistory)")
+        _last_forwardCount = forwardCount
         
     }
     
@@ -118,12 +160,17 @@ extension WebViewBackForwardList {
         if action == .Add {
             mirroredHistory.append(url)
         }
-        else if action == .Replace {
-            mirroredHistory[currentItemIndex] = url
+        else if action == .Replace, mirroredHistory.isIndexValid(index: currentItemIndex) {
+            let currentUrl = mirroredHistory[currentItemIndex]
+            if currentUrl != url {
+                mirroredHistory[currentItemIndex] = url
+            }
         }
         else {
             debugPrint("action not handled")
         }
+        
+        debugPrint("internalHistory = \(mirroredHistory)")
         
     }
     
@@ -174,6 +221,12 @@ extension WebViewBackForwardList {
     
     func internalList() -> AnyObject? {
         return webView?.value(forKeyPath: "documentView.webView.backForwardList") as AnyObject?
+    }
+}
+
+extension Array {
+    func isIndexValid(index: Int) -> Bool {
+        return index >= 0 && index < self.count
     }
 }
 
