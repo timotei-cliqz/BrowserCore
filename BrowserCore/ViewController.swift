@@ -11,7 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     
     let urlBar = URLBar()
-    let webView = CustomWebView()
+    let toolBar = CIToolBarView()
+    let webView = WebView()
     let progressBar = ProgressBar()
 
     override func viewDidLoad() {
@@ -27,16 +28,22 @@ class ViewController: UIViewController {
         
         view.addSubview(urlBar)
         view.addSubview(webView)
+        view.addSubview(toolBar)
         view.addSubview(progressBar)
+        
+        toolBar.delegate = self
+        toolBar.backButton.isEnabled = false
+        toolBar.forwardButton.isEnabled = false
         
         progressBar.alpha = 0.0
         progressBar.setProgress(progress: 0.0)
         
-        urlBar.textField.text = "https://www.thestar.com"
+        urlBar.textField.text = "https://www.google.de"
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadProgressUpdate), name: LoadProgressNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(canGoForwardUpdate), name: CanGoForwardNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(canGoBackUpdate), name: CanGoBackNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newUrlNotification), name: NewURLNotification, object: nil)
     }
     
     func setStyling() {
@@ -49,9 +56,15 @@ class ViewController: UIViewController {
             make.height.equalTo(64)
         }
         
-        webView.snp.makeConstraints { (make) in
+        toolBar.snp.makeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
+        webView.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
             make.top.equalTo(urlBar.snp.bottom)
+            make.bottom.equalTo(toolBar.snp.top)
         }
         
         progressBar.snp.makeConstraints { (make) in
@@ -129,6 +142,28 @@ extension ViewController: URLBarDelegate {
             self.webView.loadRequest(request)
             self.urlBar.textField.resignFirstResponder()
         }
+    }
+}
+
+extension ViewController: CIToolBarDelegate {
+    func backPressed() {
+        self.webView.goBack()
+    }
+    
+    func forwardPressed() {
+        self.webView.goForward()
+    }
+    
+    func middlePressed() {
+        
+    }
+    
+    func sharePressed() {
+        
+    }
+    
+    func tabsPressed() {
+        
     }
 }
 
