@@ -18,6 +18,9 @@
 		AF89863E1FFF7A5900B372E0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89863D1FFF7A5900B372E0 /* WebView.swift */; };
 		AF8986401FFF7ED500B372E0 /* URLBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89863F1FFF7ED500B372E0 /* URLBar.swift */; };
 		AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8986411FFF7F5400B372E0 /* StateAnimator.swift */; };
+		AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */; };
+		AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FFA200CAEA900D40ABB /* RealmStore.swift */; };
+		AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FFC200CBDC000D40ABB /* HistoryController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,9 @@
 		AF89863D1FFF7A5900B372E0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		AF89863F1FFF7ED500B372E0 /* URLBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBar.swift; sourceTree = "<group>"; };
 		AF8986411FFF7F5400B372E0 /* StateAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateAnimator.swift; sourceTree = "<group>"; };
+		AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralHistoryModule.swift; sourceTree = "<group>"; };
+		AFB65FFA200CAEA900D40ABB /* RealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStore.swift; sourceTree = "<group>"; };
+		AFB65FFC200CBDC000D40ABB /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
 		D775863DC09CAA8FBDEBC6FD /* Pods-BrowserCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrowserCore.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrowserCore/Pods-BrowserCore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +105,9 @@
 				AF89863F1FFF7ED500B372E0 /* URLBar.swift */,
 				AF8986411FFF7F5400B372E0 /* StateAnimator.swift */,
 				AF00F20F20064F0B001C070D /* CIToolBar.swift */,
+				AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */,
+				AFB65FFA200CAEA900D40ABB /* RealmStore.swift */,
+				AFB65FFC200CBDC000D40ABB /* HistoryController.swift */,
 			);
 			path = BrowserCore;
 			sourceTree = "<group>";
@@ -226,10 +235,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */,
 				AF0A3F3D2003A16D005D6321 /* WebViewBackForwardList.swift in Sources */,
 				AF00F21020064F0B001C070D /* CIToolBar.swift in Sources */,
 				AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */,
+				AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */,
 				AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */,
+				AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */,
 				AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */,
 				AF89863E1FFF7A5900B372E0 /* WebView.swift in Sources */,
 				AF8986401FFF7ED500B372E0 /* URLBar.swift in Sources */,

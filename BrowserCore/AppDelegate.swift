@@ -16,13 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        NotificationCenter.default.addObserver(self, selector: #selector(notificationFired), name: nil, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(notificationFired), name: nil, object: nil)
+        
+        //init GeneralHistory
+        let _ = GeneralHistoryModule.shared
         return true
     }
     
-//    @objc func notificationFired(_ notification: Notification) {
-//        debugPrint("notification -- \(notification)")
-//    }
+    @objc func notificationFired(_ notification: Notification) {
+        debugPrint("notification -- \(notification)")
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

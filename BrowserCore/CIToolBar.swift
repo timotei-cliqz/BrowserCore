@@ -45,14 +45,13 @@ final class CIToolBarView: UIView {
         forwardButton.setImage(UIImage.templateImageNamed("bottomNav-forward"), for: .normal)
         middleButton.setImage(UIImage.templateImageNamed("homeButton"), for: .normal)
         shareButton.setImage(UIImage.templateImageNamed("bottomNav-send"), for: .normal)
-        tabsButton.setImage(UIImage.templateImageNamed("tabs"), for: .normal)
+        //tabsButton.setImage(UIImage.templateImageNamed("tabs"), for: .normal)
         
         backButton.tintColor = .white
         forwardButton.tintColor = .white
         middleButton.tintColor = .white
         shareButton.tintColor = .white
-        tabsButton.tintColor = .white
-        
+        //tabsButton.tintColor = .white
         
         backButton.addTarget(self, action: #selector(backPressed), for: .touchUpInside)
         forwardButton.addTarget(self, action: #selector(forwardPressed), for: .touchUpInside)
@@ -63,6 +62,7 @@ final class CIToolBarView: UIView {
     
     private func setStyling() {
         self.backgroundColor = .clear
+        tabsButton.setTitle("History", for: .normal)
     }
     
     private func setConstraints() {

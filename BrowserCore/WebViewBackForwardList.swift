@@ -18,13 +18,14 @@ enum WebViewHistoryAction {
     case Replace
 }
 
-let HistoryAddNotification = "HistoryAddNotification"
-let HistoryReplaceNotification = "HistoryReplaceNotification"
+let HistoryAddNotification = Notification.Name(rawValue: "HistoryAddNotification")
+let HistoryReplaceNotification = Notification.Name(rawValue: "HistoryReplaceNotification")
 
 class WebViewBackForwardList {
     
     struct HistoryEntry {
         var url: URL
+        var title: String
         var timestamp: Date //use this to uniquely identify an entry in the General History
     }
     
@@ -43,8 +44,7 @@ class WebViewBackForwardList {
         return totalCount
     }
     
-    var mirroredHistory: [URL] = [] //the mirror is not 100% accurate. In case of branching the entries after the branching point are kept until they are replaced by new entries from the new branch. It does not have to for the history to be recorded correcly in the general history (maybe, not sure yet).
-    //actually it would be easier if I mirror the internalHistory faithfully.
+    var mirroredHistory: [HistoryEntry] = []
     
     init(webView: WebView) {
         self.webView = webView
@@ -109,7 +109,7 @@ extension WebViewBackForwardList {
         let currentIndexInBounds = currentItemIndex > 0 && currentItemIndex < mirroredHistory.count
         var isUrlDifferent = false
         if currentIndexInBounds {
-            isUrlDifferent = notification_url != mirroredHistory[currentItemIndex]
+            isUrlDifferent = notification_url != mirroredHistory[currentItemIndex].url
         }
         
         if _last_forwardCount > 0 && isUrlDifferent && currentIndexInBounds && updateThisWebViewHistory {
@@ -158,19 +158,27 @@ extension WebViewBackForwardList {
         guard let url = url else { return }
         
         if action == .Add {
-            mirroredHistory.append(url)
+            let historyItem = HistoryEntry(url: url, title: "", timestamp: Date())
+            mirroredHistory.append(historyItem)
+            NotificationCenter.default.post(name: HistoryAddNotification, object: nil, userInfo: ["url": historyItem.url, "title": historyItem.title, "timestamp": historyItem.timestamp])
         }
         else if action == .Replace, mirroredHistory.isIndexValid(index: currentItemIndex) {
-            let currentUrl = mirroredHistory[currentItemIndex]
+            let currentUrl = mirroredHistory[currentItemIndex].url
             if currentUrl != url {
-                mirroredHistory[currentItemIndex] = url
+                mirroredHistory[currentItemIndex].url = url
+                //The timestamp is used to identify the entry to be modified in the General History. It needs to coincide with the timestamp of the HistoryAddNotification.
+                NotificationCenter.default.post(name: HistoryReplaceNotification, object: nil, userInfo: ["new_url": mirroredHistory[currentItemIndex].url, "old_url": currentUrl, "title": mirroredHistory[currentItemIndex].title, "timestamp": mirroredHistory[currentItemIndex].timestamp])
             }
         }
         else {
             debugPrint("action not handled")
         }
         
-        debugPrint("internalHistory = \(mirroredHistory)")
+        let url_history = mirroredHistory.map { (item) -> URL in
+            return item.url
+        }
+        
+        debugPrint("internalHistory = \(url_history)")
         
     }
     

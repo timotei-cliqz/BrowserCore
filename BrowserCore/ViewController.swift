@@ -171,7 +171,8 @@ extension ViewController: CIToolBarDelegate {
     }
     
     func tabsPressed() {
-        
+        let historyController = HistoryController()
+        self.present(historyController, animated: true, completion: nil)
     }
 }
 

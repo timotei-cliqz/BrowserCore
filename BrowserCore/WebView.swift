@@ -33,7 +33,6 @@ class WebView: UIWebView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.delegate = self
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,17 +92,17 @@ extension WebView: UIWebViewDelegate {
     
     func broadcastWebViewValues() {
         if self.canGoForward != _last_canGoForward {
-            NotificationCenter.default.post(name: CanGoForwardNotification, object: nil, userInfo: ["value": self.canGoForward])
+            NotificationCenter.default.post(name: CanGoForwardNotification, object: self, userInfo: ["value": self.canGoForward])
             _last_canGoForward = self.canGoForward
         }
         
         if self.canGoBack != _last_canGoBack {
-            NotificationCenter.default.post(name: CanGoBackNotification, object: nil, userInfo: ["value": self.canGoBack])
+            NotificationCenter.default.post(name: CanGoBackNotification, object: self, userInfo: ["value": self.canGoBack])
             _last_canGoBack = self.canGoBack
         }
         
         if let url = self.backForwardList.currentItemUrl()?.absoluteString, url != _last_url_string {
-            NotificationCenter.default.post(name: NewURLNotification, object: nil, userInfo: ["url": url])
+            NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
             _last_url_string = url
         }
         
