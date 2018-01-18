@@ -9,12 +9,6 @@
 import UIKit
 import WebKit
 
-let LoadProgressNotification = Notification.Name(rawValue: "LoadProgressNotification")
-let CanGoBackNotification = Notification.Name("CanGoBackNotification")
-let CanGoForwardNotification = Notification.Name("CanGoForwardNotification")
-
-let NewURLNotification = Notification.Name("NewURLNotification")
-
 class WebView: UIWebView {
     
     //Possible notifications of interest - DataDetectorsUIDidFinishURLificationNotification

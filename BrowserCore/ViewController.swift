@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     let urlBar = URLBar()
     let toolBar = CIToolBarView()
-    let webView = WebView()
+    let webView = CustomWKWebView()
     let progressBar = ProgressBar()
 
     override func viewDidLoad() {
@@ -109,20 +109,20 @@ extension ViewController {
     
     @objc func canGoForwardUpdate(_ notification: Notification) {
         if let value = notification.userInfo?["value"] as? Bool{
-            debugPrint("canGoForward - \(value)")
+            //debugPrint("canGoForward - \(value)")
             toolBar.forwardButton.isEnabled = value
         }
     }
     @objc func canGoBackUpdate(_ notification: Notification) {
         if let value = notification.userInfo?["value"] as? Bool {
-            debugPrint("canGoBack - \(value)")
+            //debugPrint("canGoBack - \(value)")
             toolBar.backButton.isEnabled = value
         }
     }
     
     @objc func newUrlNotification(_ notification: Notification) {
-        if let url = notification.userInfo?["url"] as? String, url != "" {
-            self.urlBar.textField.text = url
+        if let url = notification.userInfo?["url"] as? URL {
+            self.urlBar.textField.text = url.absoluteString
         }
     }
 }
@@ -147,7 +147,7 @@ extension ViewController: URLBarDelegate {
     func urlReturnPressed() {
         if let url_str = self.urlBar.textField.text, let url = URL(string: url_str) {
             let request = URLRequest(url: url)
-            self.webView.loadRequest(request)
+            self.webView.load(request)
             self.urlBar.textField.resignFirstResponder()
         }
     }

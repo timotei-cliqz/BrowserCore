@@ -18,8 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //NotificationCenter.default.addObserver(self, selector: #selector(notificationFired), name: nil, object: nil)
         
+        //URLProtocol.registerClass(InterceptorURLProtocol.self)
+        
         //init GeneralHistory
         let _ = GeneralHistoryModule.shared
+        
         return true
     }
     
