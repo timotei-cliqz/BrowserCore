@@ -8,6 +8,13 @@
 
 import UIKit
 
+//This is an important extension
+extension Array {
+    func isIndexValid(index: Int) -> Bool {
+        return index >= 0 && index < self.count
+    }
+}
+
 class ViewController: UIViewController {
     
     let urlBar = URLBar()

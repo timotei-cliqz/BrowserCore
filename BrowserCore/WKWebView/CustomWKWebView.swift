@@ -43,20 +43,13 @@ class CustomWKWebView: WKWebView {
         
         urlObservation = self.observe(\.url, changeHandler: {[unowned self] (webView, change) in
             if let url = webView.url, url.absoluteString != self._last_url_string {
-                NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
                 self._last_url_string = url.absoluteString
-                self.internalHistory?.urlChanged()
+                NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
+                debugPrint("==============")
+                debugPrint("Update called")
+                self.internalHistory?.update()
             }
         })
-        
-        let timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateInternalHistory(_:)), userInfo: nil, repeats: true)
-        timer.fire()
-    }
-    
-    @objc func updateInternalHistory(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.internalHistory?.update()
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -102,6 +95,7 @@ extension CustomWKWebView: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         debugPrint("didFinish -- \(String(describing: self.url))")
+        //self.internalHistory?.update()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

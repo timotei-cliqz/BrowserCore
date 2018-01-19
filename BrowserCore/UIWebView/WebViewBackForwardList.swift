@@ -232,11 +232,6 @@ extension WebViewBackForwardList {
     }
 }
 
-extension Array {
-    func isIndexValid(index: Int) -> Bool {
-        return index >= 0 && index < self.count
-    }
-}
 
 
 //This is for reference only
