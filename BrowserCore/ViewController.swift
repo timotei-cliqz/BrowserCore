@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     let urlBar = URLBar()
     let toolBar = CIToolBarView()
-    let webView = CustomWKWebView()
+    weak var webView: CustomWKWebView? = TabManager.shared.selectedTab
     let progressBar = ProgressBar()
 
     override func viewDidLoad() {
@@ -30,11 +30,19 @@ class ViewController: UIViewController {
         setConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let tab = TabManager.shared.selectedTab {
+            if tab != webView {
+                replaceWebView(newWebView: tab)
+            }
+        }
+    }
+    
     func setUpComponent() {
         urlBar.delegate = self
         
         view.addSubview(urlBar)
-        view.addSubview(webView)
+        view.addSubview(webView!)
         view.addSubview(toolBar)
         view.addSubview(progressBar)
         
@@ -51,6 +59,8 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(canGoForwardUpdate), name: CanGoForwardNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(canGoBackUpdate), name: CanGoBackNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newUrlNotification), name: NewURLNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(tabChanged), name: TabSelectedNotification, object: nil)
     }
     
     func setStyling() {
@@ -68,11 +78,7 @@ class ViewController: UIViewController {
             make.height.equalTo(50)
         }
         
-        webView.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(urlBar.snp.bottom)
-            make.bottom.equalTo(toolBar.snp.top)
-        }
+        setWebViewConstraints()
         
         progressBar.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
@@ -80,18 +86,46 @@ class ViewController: UIViewController {
             make.height.equalTo(4)
         }
     }
+    
+    func setWebViewConstraints() {
+        webView?.snp.remakeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(urlBar.snp.bottom)
+            make.bottom.equalTo(toolBar.snp.top)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func replaceWebView(newWebView: CustomWKWebView) {
+        
+        self.webView?.snp.removeConstraints()
+        self.webView?.removeFromSuperview()
+        self.view.addSubview(newWebView)
+        self.webView = newWebView
+        self.view.sendSubview(toBack: newWebView)
+        setWebViewConstraints()
+        self.progressBar.setProgress(progress: 0.0)
+        self.progressBar.alpha = 0.0
+    }
+}
 
+//Tab
+extension ViewController {
+    @objc func tabChanged(_ notification: Notification) {
+        if let tab = TabManager.shared.selectedTab {
+            replaceWebView(newWebView: tab)
+        }
+    }
 }
 
 //progress
 extension ViewController {
     @objc func loadProgressUpdate(_ notification: Notification) {
-        if let p = notification.userInfo?["progress"] as? Double {
+        if let p = notification.userInfo?["progress"] as? Double, let tab = notification.object as? CustomWKWebView, tab == TabManager.shared.selectedTab {
             UIView.animate(withDuration: 0.1, animations: {
 
                 if p != 1.0  && p != 0.0 {
@@ -115,20 +149,20 @@ extension ViewController {
 extension ViewController {
     
     @objc func canGoForwardUpdate(_ notification: Notification) {
-        if let value = notification.userInfo?["value"] as? Bool{
+        if let value = notification.userInfo?["value"] as? Bool, let tab = notification.object as? CustomWKWebView, tab == TabManager.shared.selectedTab {
             //debugPrint("canGoForward - \(value)")
             toolBar.forwardButton.isEnabled = value
         }
     }
     @objc func canGoBackUpdate(_ notification: Notification) {
-        if let value = notification.userInfo?["value"] as? Bool {
+        if let value = notification.userInfo?["value"] as? Bool, let tab = notification.object as? CustomWKWebView, tab == TabManager.shared.selectedTab {
             //debugPrint("canGoBack - \(value)")
             toolBar.backButton.isEnabled = value
         }
     }
     
     @objc func newUrlNotification(_ notification: Notification) {
-        if let url = notification.userInfo?["url"] as? URL {
+        if let url = notification.userInfo?["url"] as? URL, let tab = notification.object as? CustomWKWebView, tab == TabManager.shared.selectedTab {
             self.urlBar.textField.text = url.absoluteString
         }
     }
@@ -154,7 +188,7 @@ extension ViewController: URLBarDelegate {
     func urlReturnPressed() {
         if let url_str = self.urlBar.textField.text, let url = URL(string: url_str) {
             let request = URLRequest(url: url)
-            self.webView.load(request)
+            self.webView?.load(request)
             self.urlBar.textField.resignFirstResponder()
         }
     }
@@ -162,19 +196,21 @@ extension ViewController: URLBarDelegate {
 
 extension ViewController: CIToolBarDelegate {
     func backPressed() {
-        self.webView.goBack()
+        self.webView?.goBack()
     }
     
     func forwardPressed() {
-        self.webView.goForward()
+        self.webView?.goForward()
     }
     
     func middlePressed() {
-        
+        let tab = TabManager.shared.addTab()
+        TabManager.shared.selectTab(tab: tab)
     }
     
     func sharePressed() {
-        
+        //Test tab removal
+        TabManager.shared.removeTab(tab: TabManager.shared.selectedTab!)
     }
     
     func tabsPressed() {

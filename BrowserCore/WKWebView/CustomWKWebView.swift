@@ -50,6 +50,7 @@ class CustomWKWebView: WKWebView {
                 self.internalHistory?.update()
             }
         })
+        
     }
     
     required init?(coder: NSCoder) {
@@ -57,6 +58,13 @@ class CustomWKWebView: WKWebView {
     }
     
     deinit {
+        //removal of the url observation needs some time.
+        //so remove it before the webview is deinited.
+        //since only the Tab Manager is supposed to have a strong reference to a webView
+        //remove the urlObservation when removing the webview from the Tab Manager.
+        urlObservation?.invalidate()
+        urlObservation = nil
+        NotificationCenter.default.removeObserver(self)
         self.removeObserver(self, forKeyPath: KVOEstimatedProgress, context: nil)
         self.removeObserver(self, forKeyPath: KVOCanGoBack, context: nil)
         self.removeObserver(self, forKeyPath: KVOCanGoForward, context: nil)
@@ -67,7 +75,7 @@ class CustomWKWebView: WKWebView {
         
         if keyPath == KVOEstimatedProgress {
             if let progress = change?[NSKeyValueChangeKey.newKey] as? Double {
-                NotificationCenter.default.post(name: LoadProgressNotification, object: nil, userInfo: ["progress": progress])
+                NotificationCenter.default.post(name: LoadProgressNotification, object: self, userInfo: ["progress": progress])
             }
         }
         else if keyPath == KVOCanGoBack {

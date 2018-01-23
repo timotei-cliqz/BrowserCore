@@ -39,6 +39,12 @@ class WebViewHistory: NSObject {
         self.webView = webView
         super.init()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        timer?.invalidate()
+        timer = nil
+    }
 
     func update() {
         assert(Thread.isMainThread)
