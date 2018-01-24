@@ -22,6 +22,9 @@
 		AF89863E1FFF7A5900B372E0 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89863D1FFF7A5900B372E0 /* WebView.swift */; };
 		AF8986401FFF7ED500B372E0 /* URLBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89863F1FFF7ED500B372E0 /* URLBar.swift */; };
 		AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8986411FFF7F5400B372E0 /* StateAnimator.swift */; };
+		AFA47D7520188BC2004BB9DB /* WebViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA47D7420188BC2004BB9DB /* WebViewContainer.swift */; };
+		AFA47D7B20189EA4004BB9DB /* TabOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA47D7A20189EA4004BB9DB /* TabOverview.swift */; };
+		AFA47D7D2018A0BF004BB9DB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFA47D7C2018A0BF004BB9DB /* Info.plist */; };
 		AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */; };
 		AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FFA200CAEA900D40ABB /* RealmStore.swift */; };
 		AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FFC200CBDC000D40ABB /* HistoryController.swift */; };
@@ -42,10 +45,12 @@
 		AF8986301FFF795200B372E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF8986321FFF795200B372E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8986351FFF795200B372E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		AF8986371FFF795200B372E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF89863D1FFF7A5900B372E0 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		AF89863F1FFF7ED500B372E0 /* URLBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBar.swift; sourceTree = "<group>"; };
 		AF8986411FFF7F5400B372E0 /* StateAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateAnimator.swift; sourceTree = "<group>"; };
+		AFA47D7420188BC2004BB9DB /* WebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainer.swift; sourceTree = "<group>"; };
+		AFA47D7A20189EA4004BB9DB /* TabOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabOverview.swift; sourceTree = "<group>"; };
+		AFA47D7C2018A0BF004BB9DB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralHistoryModule.swift; sourceTree = "<group>"; };
 		AFB65FFA200CAEA900D40ABB /* RealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStore.swift; sourceTree = "<group>"; };
 		AFB65FFC200CBDC000D40ABB /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
@@ -103,6 +108,10 @@
 			isa = PBXGroup;
 			children = (
 				AF89862A1FFF795200B372E0 /* BrowserCore */,
+				AF89862F1FFF795200B372E0 /* Main.storyboard */,
+				AF8986341FFF795200B372E0 /* LaunchScreen.storyboard */,
+				AF8986321FFF795200B372E0 /* Assets.xcassets */,
+				AFA47D7C2018A0BF004BB9DB /* Info.plist */,
 				AF8986291FFF795200B372E0 /* Products */,
 				2D13FFC218756E78B16E342E /* Pods */,
 				21E9F33462C0844AED13CAC8 /* Frameworks */,
@@ -122,22 +131,52 @@
 			children = (
 				AF89862B1FFF795200B372E0 /* AppDelegate.swift */,
 				AF89862D1FFF795200B372E0 /* ViewController.swift */,
-				AF89862F1FFF795200B372E0 /* Main.storyboard */,
-				AF8986321FFF795200B372E0 /* Assets.xcassets */,
-				AF8986341FFF795200B372E0 /* LaunchScreen.storyboard */,
-				AF8986371FFF795200B372E0 /* Info.plist */,
+				AFA47D782018909E004BB9DB /* Web UI */,
+				AFA47D79201890B7004BB9DB /* Util UI */,
+				AF37010C2017837900798D69 /* TabManager.swift */,
 				AF4D8DD5200F653600A6D40B /* WKWebView */,
 				AF4D8DD1200F60E800A6D40B /* UIWebView */,
-				AF89863F1FFF7ED500B372E0 /* URLBar.swift */,
-				AF8986411FFF7F5400B372E0 /* StateAnimator.swift */,
-				AF00F20F20064F0B001C070D /* CIToolBar.swift */,
-				AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */,
-				AFB65FFA200CAEA900D40ABB /* RealmStore.swift */,
-				AFB65FFC200CBDC000D40ABB /* HistoryController.swift */,
-				AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */,
-				AF37010C2017837900798D69 /* TabManager.swift */,
+				AFA47D7620189075004BB9DB /* History */,
+				AFA47D7720189081004BB9DB /* Utils */,
 			);
 			path = BrowserCore;
+			sourceTree = "<group>";
+		};
+		AFA47D7620189075004BB9DB /* History */ = {
+			isa = PBXGroup;
+			children = (
+				AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */,
+				AFB65FFA200CAEA900D40ABB /* RealmStore.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		AFA47D7720189081004BB9DB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AF8986411FFF7F5400B372E0 /* StateAnimator.swift */,
+				AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		AFA47D782018909E004BB9DB /* Web UI */ = {
+			isa = PBXGroup;
+			children = (
+				AF89863F1FFF7ED500B372E0 /* URLBar.swift */,
+				AF00F20F20064F0B001C070D /* CIToolBar.swift */,
+				AFA47D7420188BC2004BB9DB /* WebViewContainer.swift */,
+			);
+			path = "Web UI";
+			sourceTree = "<group>";
+		};
+		AFA47D79201890B7004BB9DB /* Util UI */ = {
+			isa = PBXGroup;
+			children = (
+				AFB65FFC200CBDC000D40ABB /* HistoryController.swift */,
+				AFA47D7A20189EA4004BB9DB /* TabOverview.swift */,
+			);
+			path = "Util UI";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFA47D7D2018A0BF004BB9DB /* Info.plist in Resources */,
 				AF8986361FFF795200B372E0 /* LaunchScreen.storyboard in Resources */,
 				AF8986331FFF795200B372E0 /* Assets.xcassets in Resources */,
 				AF8986311FFF795200B372E0 /* Main.storyboard in Resources */,
@@ -264,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */,
+				AFA47D7520188BC2004BB9DB /* WebViewContainer.swift in Sources */,
 				AF0A3F3D2003A16D005D6321 /* WebViewBackForwardList.swift in Sources */,
 				AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */,
 				AF37010D2017837900798D69 /* TabManager.swift in Sources */,
@@ -272,6 +313,7 @@
 				AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */,
 				AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */,
 				AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */,
+				AFA47D7B20189EA4004BB9DB /* TabOverview.swift in Sources */,
 				AF42149B200F578E00A3E71D /* InterceptorURLProtocol.swift in Sources */,
 				AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */,
 				AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */,
@@ -416,7 +458,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UYYSSHVUH;
-				INFOPLIST_FILE = BrowserCore/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tim.BrowserCore;
@@ -433,7 +475,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UYYSSHVUH;
-				INFOPLIST_FILE = BrowserCore/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tim.BrowserCore;

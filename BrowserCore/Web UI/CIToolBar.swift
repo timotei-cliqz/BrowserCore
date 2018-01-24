@@ -64,7 +64,7 @@ final class CIToolBarView: UIView {
         self.backgroundColor = .clear
         tabsButton.setTitle("History", for: .normal)
         middleButton.setTitle("Add Tab", for: .normal)
-        shareButton.setTitle("Rem Tab", for: .normal)
+        shareButton.setTitle("Tabs", for: .normal)
     }
     
     private func setConstraints() {

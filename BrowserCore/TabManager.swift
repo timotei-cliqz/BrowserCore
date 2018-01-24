@@ -16,13 +16,12 @@ class TabManager: NSObject {
     
     //typealias Tab = CustomWKWebView
     
-    var tabs: [CustomWKWebView] = [CustomWKWebView()]
+    var tabs: [CustomWKWebView] = []
     
     weak var selectedTab: CustomWKWebView? = nil
     
     override init() {
         super.init()
-        self.selectedTab = tabs.first
     }
     
     func selectTab(tab: CustomWKWebView) {
@@ -44,8 +43,7 @@ class TabManager: NSObject {
             if _tab == tab {
                 tab.snp.removeConstraints()
                 tab.removeFromSuperview()
-                tab.urlObservation?.invalidate()
-                tab.urlObservation = nil
+                tab.prepareDeinit()
                 tabs.remove(at: index)
                 break
             }

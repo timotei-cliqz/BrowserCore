@@ -16,15 +16,15 @@ let NewURLNotification = Notification.Name("NewURLNotification")
 
 class CustomWKWebView: WKWebView {
     
-    var _last_url_string = ""
+    fileprivate var _last_url_string = ""
     
-    let KVOEstimatedProgress = "estimatedProgress"
-    let KVOCanGoBack = "canGoBack"
-    let KVOCanGoForward = "canGoForward"
-    let KVOUrl = "url" //this does not work, use NSKeyValueObservation instead
-    let KVOBackForward = "backForwardList"
+    fileprivate let KVOEstimatedProgress = "estimatedProgress"
+    fileprivate let KVOCanGoBack = "canGoBack"
+    fileprivate let KVOCanGoForward = "canGoForward"
+    fileprivate let KVOUrl = "url" //this does not work, use NSKeyValueObservation instead
+    fileprivate let KVOBackForward = "backForwardList"
     
-    var urlObservation: NSKeyValueObservation?
+    fileprivate var urlObservation: NSKeyValueObservation?
     
     fileprivate var internalHistory: WebViewHistory? = nil
     
@@ -55,6 +55,11 @@ class CustomWKWebView: WKWebView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func prepareDeinit() {
+        urlObservation?.invalidate()
+        urlObservation = nil
     }
     
     deinit {
