@@ -17,6 +17,12 @@ struct HistoryEntry {
 
 class WebViewHistory: NSObject {
     
+    enum VicinityStatus {
+        case Changed
+        case NotChanged
+        case Undefined
+    }
+    
     fileprivate unowned var webView: WKWebView
     
     fileprivate var _last_currentIndex = -1 //careful if you want this to access array elements. Always check
@@ -65,7 +71,20 @@ class WebViewHistory: NSObject {
         let isCurrentIndexValid = currentIndex >= 0 && currentIndex < internalList.count
         let urlIsDifferent = isCurrentIndexValid == false ? false : currentItem.url != internalList[currentIndex].url
         
-        if _last_forward_count > 0 && urlIsDifferent {
+        var vicinity: VicinityStatus {
+            if internalList.isIndexValid(index: currentIndex + 1) && list.isIndexValid(index: currentIndex + 1) {
+                if internalList[currentIndex + 1].url == list[currentIndex + 1].url {
+                    return .NotChanged
+                }
+                else {
+                    return .Changed
+                }
+            }
+            
+            return .Undefined
+        }
+        
+        if _last_forward_count > 0 && urlIsDifferent && vicinity != .NotChanged {
             //remove everything from currentIndex..<internalList.count
             let number_to_remove = (internalList.count - 1) - currentIndex + 1
             if  number_to_remove >= 0 && number_to_remove <= internalList.count {
