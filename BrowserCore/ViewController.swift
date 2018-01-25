@@ -170,7 +170,7 @@ extension ViewController: URLBarDelegate {
     }
     
     func urlReturnPressed() {
-        if let url_str = self.urlBar.textField.text, let url = URL(string: url_str) {
+        if let url_str = self.urlBar.textField.text, let url = URIFixup.getURL(url_str) {
             let request = URLRequest(url: url)
             self.webViewContainer.load(request: request)
             self.urlBar.textField.resignFirstResponder()

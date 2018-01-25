@@ -14,6 +14,7 @@
 		AF3B5C4B201A135400EF37EA /* BubbleRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C48201A135300EF37EA /* BubbleRightCell.swift */; };
 		AF3B5C4C201A135400EF37EA /* BubbleLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */; };
 		AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */; };
+		AF3B5C54201A254C00EF37EA /* URIFixup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C53201A254C00EF37EA /* URIFixup.swift */; };
 		AF42149B200F578E00A3E71D /* InterceptorURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */; };
 		AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */; };
 		AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */; };
@@ -42,6 +43,7 @@
 		AF3B5C48201A135300EF37EA /* BubbleRightCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleRightCell.swift; sourceTree = "<group>"; };
 		AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleLeftCell.swift; sourceTree = "<group>"; };
 		AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleTableView.swift; sourceTree = "<group>"; };
+		AF3B5C53201A254C00EF37EA /* URIFixup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URIFixup.swift; sourceTree = "<group>"; };
 		AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorURLProtocol.swift; sourceTree = "<group>"; };
 		AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWKWebView.swift; sourceTree = "<group>"; };
 		AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewHistory.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				AF8986411FFF7F5400B372E0 /* StateAnimator.swift */,
 				AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */,
+				AF3B5C53201A254C00EF37EA /* URIFixup.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				AF37010D2017837900798D69 /* TabManager.swift in Sources */,
 				AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */,
 				AF00F21020064F0B001C070D /* CIToolBar.swift in Sources */,
+				AF3B5C54201A254C00EF37EA /* URIFixup.swift in Sources */,
 				AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */,
 				AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */,
 				AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */,
