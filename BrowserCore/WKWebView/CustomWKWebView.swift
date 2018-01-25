@@ -29,11 +29,17 @@ class CustomWKWebView: WKWebView {
     
     fileprivate var internalHistory: WebViewHistory? = nil
     
+    var isPrivate: Bool {
+        return !self.configuration.websiteDataStore.isPersistent
+    }
+    
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
     
         super.init(frame: frame, configuration: configuration)
         
-        internalHistory = WebViewHistory(webView: self)
+        if !self.isPrivate {
+            internalHistory = WebViewHistory(webView: self)
+        }
         
         self.navigationDelegate = self
         self.uiDelegate = self

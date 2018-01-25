@@ -27,7 +27,8 @@ class TabOverview: UIViewController {
         tableView.delegate = self
         
         let done = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
-        toolBar.setItems([done], animated: false)
+        let addPrivateTab = UIBarButtonItem(title: "Add Private Tab", style: .plain, target: self, action: #selector(addPrivateTabPressed))
+        toolBar.setItems([done, addPrivateTab], animated: false)
         
         view.addSubview(tableView)
         view.addSubview(toolBar)
@@ -67,6 +68,12 @@ class TabOverview: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func addPrivateTabPressed(_ button: UIBarButtonItem) {
+        let tab = TabManager.shared.addTab(privateTab: true)
+        TabManager.shared.selectTab(tab: tab)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension TabOverview: UITableViewDataSource, UITableViewDelegate {
@@ -87,10 +94,16 @@ extension TabOverview: UITableViewDataSource, UITableViewDelegate {
         
         // Configure the cell...
         //(tabs[indexPath.row].title != nil ? tabs[indexPath.row].title : tabs[indexPath.row].url?.absoluteString)
-        cell.textLabel?.text = tabs[indexPath.row].url != nil ? (tabs[indexPath.row].title ?? "") + " - " + (tabs[indexPath.row].url?.host ?? "") : "Empty Tab"
-        cell.textLabel?.numberOfLines = 0
         
         let tab = tabs[indexPath.row]
+        let prefix = tab.isPrivate ? "[Forget Tab]: " : "" 
+        let label = prefix + (tab.title ?? "") + " - " + (tab.url?.host ?? "")
+        let emptyLabel = prefix + "Empty Tab"
+        
+        cell.textLabel?.text = tab.url != nil ? label : emptyLabel
+        cell.textLabel?.numberOfLines = 0
+        
+        
         if tab == TabManager.shared.selectedTab {
             cell.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
         }

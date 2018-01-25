@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 let TabSelectedNotification = Notification.Name("TabSelectedNotification")
 
@@ -20,6 +21,23 @@ class TabManager: NSObject {
     
     weak var selectedTab: CustomWKWebView? = nil
     
+    // A WKWebViewConfiguration used for normal tabs
+    lazy fileprivate var normalConfiguration: WKWebViewConfiguration = {
+        let configuration = WKWebViewConfiguration()
+        configuration.processPool = WKProcessPool()
+        configuration.preferences.javaScriptCanOpenWindowsAutomatically = true
+        return configuration
+    }()
+    
+    // A WKWebViewConfiguration used for private mode tabs
+    lazy fileprivate var privateConfiguration: WKWebViewConfiguration = {
+        let configuration = WKWebViewConfiguration()
+        configuration.processPool = WKProcessPool()
+        configuration.preferences.javaScriptCanOpenWindowsAutomatically = false
+        configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
+        return configuration
+    }()
+    
     override init() {
         super.init()
     }
@@ -29,8 +47,17 @@ class TabManager: NSObject {
         NotificationCenter.default.post(name: TabSelectedNotification, object: self, userInfo: ["tab": tab])
     }
     
-    func addTab() -> CustomWKWebView {
-        let tab = CustomWKWebView()
+    func addTab(privateTab: Bool) -> CustomWKWebView {
+        
+        let tab: CustomWKWebView
+        
+        if privateTab {
+            tab = CustomWKWebView(frame: CGRect.zero, configuration: privateConfiguration)
+        }
+        else {
+            tab = CustomWKWebView(frame: CGRect.zero, configuration: normalConfiguration)
+        }
+        
         self.tabs.append(tab)
         return tab
     }

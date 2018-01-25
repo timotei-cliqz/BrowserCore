@@ -188,7 +188,7 @@ extension ViewController: CIToolBarDelegate {
     }
     
     func middlePressed() {
-        let tab = TabManager.shared.addTab()
+        let tab = TabManager.shared.addTab(privateTab: false)
         TabManager.shared.selectTab(tab: tab)
     }
     

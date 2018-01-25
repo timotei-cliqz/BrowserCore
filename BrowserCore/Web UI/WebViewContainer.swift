@@ -20,7 +20,7 @@ class WebViewContainer: UIViewController {
         }
         else {
             //create tab and select
-            let tab = TabManager.shared.addTab()
+            let tab = TabManager.shared.addTab(privateTab: false)
             TabManager.shared.selectTab(tab: tab)
             currentWebView = tab
         }
