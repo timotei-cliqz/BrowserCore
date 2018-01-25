@@ -11,6 +11,9 @@
 		AF00F21020064F0B001C070D /* CIToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00F20F20064F0B001C070D /* CIToolBar.swift */; };
 		AF0A3F3D2003A16D005D6321 /* WebViewBackForwardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0A3F3C2003A16D005D6321 /* WebViewBackForwardList.swift */; };
 		AF37010D2017837900798D69 /* TabManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF37010C2017837900798D69 /* TabManager.swift */; };
+		AF3B5C4B201A135400EF37EA /* BubbleRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C48201A135300EF37EA /* BubbleRightCell.swift */; };
+		AF3B5C4C201A135400EF37EA /* BubbleLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */; };
+		AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */; };
 		AF42149B200F578E00A3E71D /* InterceptorURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */; };
 		AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */; };
 		AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */; };
@@ -36,6 +39,9 @@
 		AF00F20F20064F0B001C070D /* CIToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIToolBar.swift; sourceTree = "<group>"; };
 		AF0A3F3C2003A16D005D6321 /* WebViewBackForwardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewBackForwardList.swift; sourceTree = "<group>"; };
 		AF37010C2017837900798D69 /* TabManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManager.swift; sourceTree = "<group>"; };
+		AF3B5C48201A135300EF37EA /* BubbleRightCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleRightCell.swift; sourceTree = "<group>"; };
+		AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleLeftCell.swift; sourceTree = "<group>"; };
+		AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleTableView.swift; sourceTree = "<group>"; };
 		AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorURLProtocol.swift; sourceTree = "<group>"; };
 		AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWKWebView.swift; sourceTree = "<group>"; };
 		AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewHistory.swift; sourceTree = "<group>"; };
@@ -86,6 +92,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AF3B5C4E201A135B00EF37EA /* BubbleTableView */ = {
+			isa = PBXGroup;
+			children = (
+				AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */,
+				AF3B5C48201A135300EF37EA /* BubbleRightCell.swift */,
+				AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */,
+			);
+			path = BubbleTableView;
+			sourceTree = "<group>";
+		};
 		AF4D8DD1200F60E800A6D40B /* UIWebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +123,7 @@
 		AF89861F1FFF795200B372E0 = {
 			isa = PBXGroup;
 			children = (
+				AF3B5C4E201A135B00EF37EA /* BubbleTableView */,
 				AF89862A1FFF795200B372E0 /* BrowserCore */,
 				AF89862F1FFF795200B372E0 /* Main.storyboard */,
 				AF8986341FFF795200B372E0 /* LaunchScreen.storyboard */,
@@ -303,8 +320,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF3B5C4C201A135400EF37EA /* BubbleLeftCell.swift in Sources */,
 				AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */,
 				AFA47D7520188BC2004BB9DB /* WebViewContainer.swift in Sources */,
+				AF3B5C4B201A135400EF37EA /* BubbleRightCell.swift in Sources */,
 				AF0A3F3D2003A16D005D6321 /* WebViewBackForwardList.swift in Sources */,
 				AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */,
 				AF37010D2017837900798D69 /* TabManager.swift in Sources */,
@@ -318,6 +337,7 @@
 				AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */,
 				AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */,
 				AF89863E1FFF7A5900B372E0 /* WebView.swift in Sources */,
+				AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */,
 				AF8986401FFF7ED500B372E0 /* URLBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

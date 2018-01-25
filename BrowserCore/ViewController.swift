@@ -204,7 +204,13 @@ extension ViewController: CIToolBarDelegate {
     
     func tabsPressed() {
         let historyController = HistoryController()
+        historyController.delegate = self
         self.present(historyController, animated: true, completion: nil)
     }
 }
 
+extension ViewController: HistoryControllerDelegate {
+    func didPressUrl(url: URL) {
+        self.webViewContainer.load(request: URLRequest(url: url))
+    }
+}
