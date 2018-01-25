@@ -51,6 +51,13 @@ class WebViewHistory: NSObject {
         timer?.invalidate()
         timer = nil
     }
+    
+    func titleUpdated(new_title: String) {
+        guard let currentItem = webView.backForwardList.currentItem, currentItem.title == new_title else { return }
+        let currentIndex = backCount
+        guard internalList.isIndexValid(index: currentIndex) else { return }
+        modifyHistory(action: .Replace, item: currentItem, currentIndex: currentIndex)
+    }
 
     func update() {
         assert(Thread.isMainThread)

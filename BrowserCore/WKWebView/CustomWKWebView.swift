@@ -23,6 +23,7 @@ class CustomWKWebView: WKWebView {
     fileprivate let KVOCanGoForward = "canGoForward"
     fileprivate let KVOUrl = "url" //this does not work, use NSKeyValueObservation instead
     fileprivate let KVOBackForward = "backForwardList"
+    fileprivate let KVOTitle = "title"
     
     fileprivate var urlObservation: NSKeyValueObservation?
     
@@ -40,13 +41,12 @@ class CustomWKWebView: WKWebView {
         self.addObserver(self, forKeyPath: KVOEstimatedProgress, options: .new, context: nil)
         self.addObserver(self, forKeyPath: KVOCanGoBack, options: .new, context: nil)
         self.addObserver(self, forKeyPath: KVOCanGoForward, options: .new, context: nil)
+        self.addObserver(self, forKeyPath: KVOTitle, options: .new, context: nil)
         
         urlObservation = self.observe(\.url, changeHandler: {[unowned self] (webView, change) in
             if let url = webView.url, url.absoluteString != self._last_url_string {
                 self._last_url_string = url.absoluteString
                 NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
-                debugPrint("==============")
-                debugPrint("Update called")
                 self.internalHistory?.update()
             }
         })
@@ -73,6 +73,7 @@ class CustomWKWebView: WKWebView {
         self.removeObserver(self, forKeyPath: KVOEstimatedProgress, context: nil)
         self.removeObserver(self, forKeyPath: KVOCanGoBack, context: nil)
         self.removeObserver(self, forKeyPath: KVOCanGoForward, context: nil)
+        self.removeObserver(self, forKeyPath: KVOTitle, context: nil)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -91,6 +92,11 @@ class CustomWKWebView: WKWebView {
         else if keyPath == KVOCanGoForward {
             if let newValue = change?[NSKeyValueChangeKey.newKey] as? Bool {
                 NotificationCenter.default.post(name: CanGoForwardNotification, object: self, userInfo: ["value": newValue])
+            }
+        }
+        else if keyPath == KVOTitle {
+            if let newValue = change?[NSKeyValueChangeKey.newKey] as? String {
+                internalHistory?.titleUpdated(new_title: newValue)
             }
         }
     }

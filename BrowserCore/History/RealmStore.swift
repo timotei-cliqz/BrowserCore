@@ -38,7 +38,10 @@ final class RealmStore: NSObject {
         }
         try! realm.write {
             entry?.url = new_url
-            entry?.title = new_title
+            //It happens sometimes that the new_title is "". In that case keep the old title
+            if new_title != "" {
+                entry?.title = new_title
+            }
         }
     }
     
