@@ -193,11 +193,6 @@ extension ViewController: CIToolBarDelegate {
     }
     
     func sharePressed() {
-        //Test tab removal
-//        if let tab = TabManager.shared.selectedTab {
-//            TabManager.shared.removeTab(tab: tab)
-//        }
-        
         let tabOverview = TabOverview()
         self.present(tabOverview, animated: true, completion: nil)
     }
