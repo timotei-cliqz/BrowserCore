@@ -29,6 +29,8 @@ class CustomWKWebView: WKWebView {
     
     fileprivate var internalHistory: WebViewHistory? = nil
     
+    fileprivate var adBlocker: AdBlocker? = nil
+    
     var isPrivate: Bool {
         return !self.configuration.websiteDataStore.isPersistent
     }
@@ -57,6 +59,8 @@ class CustomWKWebView: WKWebView {
             }
         })
         
+        adBlocker = AdBlocker(webView: self)
+        adBlocker?.enable()
     }
     
     required init?(coder: NSCoder) {

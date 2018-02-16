@@ -72,7 +72,7 @@ class WebViewHistory: NSObject {
     
         let list = webView.backForwardList.backList + [currentItem] + webView.backForwardList.forwardList
         
-        debugPrint("currentIndex = \(currentIndex) | forwardCount = \(forwardCount)")
+        //debugPrint("currentIndex = \(currentIndex) | forwardCount = \(forwardCount)")
         
         //Branching
         let isCurrentIndexValid = currentIndex >= 0 && currentIndex < internalList.count
@@ -155,9 +155,9 @@ class WebViewHistory: NSObject {
             }
         }
         
-        debugPrint(internalList.map({ (item) -> URL in
-            return item.url
-        }))
+//        debugPrint(internalList.map({ (item) -> URL in
+//            return item.url
+//        }))
     }
 }
 
@@ -170,13 +170,13 @@ extension WebViewHistory {
             self.update()
         })
         timer?.fire()
-        debugPrint("Start Timer")
+        //debugPrint("Start Timer")
     }
     
     fileprivate func stopTimer() {
         timer?.invalidate()
         timer = nil
-        debugPrint("Stop Timer")
+        //debugPrint("Stop Timer")
     }
 }
 

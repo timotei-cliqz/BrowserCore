@@ -134,13 +134,13 @@ extension ViewController {
     
     @objc func canGoForwardUpdate(_ notification: Notification) {
         if let value = notification.userInfo?["value"] as? Bool, let tab = notification.object as? CustomWKWebView, tab == TabManager.shared.selectedTab {
-            debugPrint("canGoForward - \(value)")
+            //debugPrint("canGoForward - \(value)")
             toolBar.forwardButton.isEnabled = value
         }
     }
     @objc func canGoBackUpdate(_ notification: Notification) {
         if let value = notification.userInfo?["value"] as? Bool, let tab = notification.object as? CustomWKWebView, tab == TabManager.shared.selectedTab {
-            debugPrint("canGoBack - \(value)")
+            //debugPrint("canGoBack - \(value)")
             toolBar.backButton.isEnabled = value
         }
     }
