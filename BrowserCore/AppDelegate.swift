@@ -19,9 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //NotificationCenter.default.addObserver(self, selector: #selector(notificationFired), name: nil, object: nil)
         
         //URLProtocol.registerClass(InterceptorURLProtocol.self)
+//        URLProtocol.wk_registerScheme("http")
+//        URLProtocol.wk_registerScheme("https")
         
         //init GeneralHistory
         let _ = GeneralHistoryModule.shared
+        let _ = WebRequest()
+        let _ = AntiTrackingModule.sharedInstance
+        let _ = AdblockingModule.sharedInstance
+        
         
         return true
     }

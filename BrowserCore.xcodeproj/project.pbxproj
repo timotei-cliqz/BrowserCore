@@ -15,9 +15,22 @@
 		AF3B5C4C201A135400EF37EA /* BubbleLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */; };
 		AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */; };
 		AF3B5C54201A254C00EF37EA /* URIFixup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C53201A254C00EF37EA /* URIFixup.swift */; };
-		AF42149B200F578E00A3E71D /* InterceptorURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */; };
 		AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */; };
 		AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */; };
+		AF76314A20372EE200857B57 /* AdblockingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76313D20372EE200857B57 /* AdblockingModule.swift */; };
+		AF76314B20372EE200857B57 /* AntiPhishingDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76313E20372EE200857B57 /* AntiPhishingDetector.swift */; };
+		AF76314C20372EE200857B57 /* AntiTrackingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76313F20372EE200857B57 /* AntiTrackingModule.swift */; };
+		AF76314D20372EE200857B57 /* BlockedRequestsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76314020372EE200857B57 /* BlockedRequestsCache.swift */; };
+		AF76314E20372EE200857B57 /* CliqzUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76314120372EE200857B57 /* CliqzUtils.swift */; };
+		AF76314F20372EE200857B57 /* ContentPolicyDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76314220372EE200857B57 /* ContentPolicyDetector.swift */; };
+		AF76315020372EE200857B57 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76314320372EE200857B57 /* Engine.swift */; };
+		AF76315120372EE200857B57 /* InterceptorURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76314420372EE200857B57 /* InterceptorURLProtocol.swift */; };
+		AF76315220372EE200857B57 /* JSBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76314520372EE200857B57 /* JSBridge.swift */; };
+		AF76315320372EE200857B57 /* JSBridgeBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = AF76314620372EE200857B57 /* JSBridgeBridge.m */; };
+		AF76315420372EE200857B57 /* WebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76314720372EE200857B57 /* WebRequest.swift */; };
+		AF76315520372EE200857B57 /* WebRequestBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = AF76314820372EE200857B57 /* WebRequestBridge.m */; };
+		AF76315620372EE200857B57 /* NSURLProtocol+WKWebViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = AF76314920372EE200857B57 /* NSURLProtocol+WKWebViewSupport.m */; };
+		AF76315820372F6B00857B57 /* jsengine.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = AF76315720372F6B00857B57 /* jsengine.bundle.js */; };
 		AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89862B1FFF795200B372E0 /* AppDelegate.swift */; };
 		AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89862D1FFF795200B372E0 /* ViewController.swift */; };
 		AF8986311FFF795200B372E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF89862F1FFF795200B372E0 /* Main.storyboard */; };
@@ -44,9 +57,24 @@
 		AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleLeftCell.swift; sourceTree = "<group>"; };
 		AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleTableView.swift; sourceTree = "<group>"; };
 		AF3B5C53201A254C00EF37EA /* URIFixup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URIFixup.swift; sourceTree = "<group>"; };
-		AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorURLProtocol.swift; sourceTree = "<group>"; };
 		AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWKWebView.swift; sourceTree = "<group>"; };
 		AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewHistory.swift; sourceTree = "<group>"; };
+		AF76313A20372EE100857B57 /* BrowserCore-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BrowserCore-Bridging-Header.h"; sourceTree = "<group>"; };
+		AF76313B20372EE100857B57 /* NSURLProtocol+WKWebViewSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebViewSupport.h"; sourceTree = "<group>"; };
+		AF76313D20372EE200857B57 /* AdblockingModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdblockingModule.swift; sourceTree = "<group>"; };
+		AF76313E20372EE200857B57 /* AntiPhishingDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntiPhishingDetector.swift; sourceTree = "<group>"; };
+		AF76313F20372EE200857B57 /* AntiTrackingModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntiTrackingModule.swift; sourceTree = "<group>"; };
+		AF76314020372EE200857B57 /* BlockedRequestsCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedRequestsCache.swift; sourceTree = "<group>"; };
+		AF76314120372EE200857B57 /* CliqzUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CliqzUtils.swift; sourceTree = "<group>"; };
+		AF76314220372EE200857B57 /* ContentPolicyDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPolicyDetector.swift; sourceTree = "<group>"; };
+		AF76314320372EE200857B57 /* Engine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
+		AF76314420372EE200857B57 /* InterceptorURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterceptorURLProtocol.swift; sourceTree = "<group>"; };
+		AF76314520372EE200857B57 /* JSBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.swift; sourceTree = "<group>"; };
+		AF76314620372EE200857B57 /* JSBridgeBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBridgeBridge.m; sourceTree = "<group>"; };
+		AF76314720372EE200857B57 /* WebRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRequest.swift; sourceTree = "<group>"; };
+		AF76314820372EE200857B57 /* WebRequestBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebRequestBridge.m; sourceTree = "<group>"; };
+		AF76314920372EE200857B57 /* NSURLProtocol+WKWebViewSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebViewSupport.m"; sourceTree = "<group>"; };
+		AF76315720372F6B00857B57 /* jsengine.bundle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = jsengine.bundle.js; path = JSEngine/jsengine.bundle.js; sourceTree = SOURCE_ROOT; };
 		AF8986281FFF795200B372E0 /* BrowserCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrowserCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF89862B1FFF795200B372E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF89862D1FFF795200B372E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +150,37 @@
 			path = WKWebView;
 			sourceTree = "<group>";
 		};
+		AF76313920372EC500857B57 /* OldAntitracking */ = {
+			isa = PBXGroup;
+			children = (
+				AF76313C20372EE200857B57 /* JSEngine */,
+				AF76313B20372EE100857B57 /* NSURLProtocol+WKWebViewSupport.h */,
+				AF76314920372EE200857B57 /* NSURLProtocol+WKWebViewSupport.m */,
+				AF76313A20372EE100857B57 /* BrowserCore-Bridging-Header.h */,
+			);
+			path = OldAntitracking;
+			sourceTree = "<group>";
+		};
+		AF76313C20372EE200857B57 /* JSEngine */ = {
+			isa = PBXGroup;
+			children = (
+				AF76315720372F6B00857B57 /* jsengine.bundle.js */,
+				AF76313D20372EE200857B57 /* AdblockingModule.swift */,
+				AF76313E20372EE200857B57 /* AntiPhishingDetector.swift */,
+				AF76313F20372EE200857B57 /* AntiTrackingModule.swift */,
+				AF76314020372EE200857B57 /* BlockedRequestsCache.swift */,
+				AF76314120372EE200857B57 /* CliqzUtils.swift */,
+				AF76314220372EE200857B57 /* ContentPolicyDetector.swift */,
+				AF76314320372EE200857B57 /* Engine.swift */,
+				AF76314420372EE200857B57 /* InterceptorURLProtocol.swift */,
+				AF76314520372EE200857B57 /* JSBridge.swift */,
+				AF76314620372EE200857B57 /* JSBridgeBridge.m */,
+				AF76314720372EE200857B57 /* WebRequest.swift */,
+				AF76314820372EE200857B57 /* WebRequestBridge.m */,
+			);
+			path = JSEngine;
+			sourceTree = "<group>";
+		};
 		AF89861F1FFF795200B372E0 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +207,7 @@
 		AF89862A1FFF795200B372E0 /* BrowserCore */ = {
 			isa = PBXGroup;
 			children = (
+				AF76313920372EC500857B57 /* OldAntitracking */,
 				AF89862B1FFF795200B372E0 /* AppDelegate.swift */,
 				AF89862D1FFF795200B372E0 /* ViewController.swift */,
 				AFA47D782018909E004BB9DB /* Web UI */,
@@ -174,7 +234,6 @@
 			isa = PBXGroup;
 			children = (
 				AF8986411FFF7F5400B372E0 /* StateAnimator.swift */,
-				AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */,
 				AF3B5C53201A254C00EF37EA /* URIFixup.swift */,
 			);
 			path = Utils;
@@ -234,6 +293,7 @@
 				TargetAttributes = {
 					AF8986271FFF795200B372E0 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -264,6 +324,7 @@
 				AFA47D7D2018A0BF004BB9DB /* Info.plist in Resources */,
 				AF8986361FFF795200B372E0 /* LaunchScreen.storyboard in Resources */,
 				AF8986331FFF795200B372E0 /* Assets.xcassets in Resources */,
+				AF76315820372F6B00857B57 /* jsengine.bundle.js in Resources */,
 				AF8986311FFF795200B372E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,25 +385,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF3B5C4C201A135400EF37EA /* BubbleLeftCell.swift in Sources */,
+				AF76315520372EE200857B57 /* WebRequestBridge.m in Sources */,
 				AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */,
 				AFA47D7520188BC2004BB9DB /* WebViewContainer.swift in Sources */,
 				AF3B5C4B201A135400EF37EA /* BubbleRightCell.swift in Sources */,
+				AF76315220372EE200857B57 /* JSBridge.swift in Sources */,
+				AF76314C20372EE200857B57 /* AntiTrackingModule.swift in Sources */,
+				AF76314E20372EE200857B57 /* CliqzUtils.swift in Sources */,
 				AF0A3F3D2003A16D005D6321 /* WebViewBackForwardList.swift in Sources */,
+				AF76315020372EE200857B57 /* Engine.swift in Sources */,
 				AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */,
 				AF37010D2017837900798D69 /* TabManager.swift in Sources */,
+				AF76314B20372EE200857B57 /* AntiPhishingDetector.swift in Sources */,
 				AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */,
+				AF76314F20372EE200857B57 /* ContentPolicyDetector.swift in Sources */,
 				AF00F21020064F0B001C070D /* CIToolBar.swift in Sources */,
 				AF3B5C54201A254C00EF37EA /* URIFixup.swift in Sources */,
 				AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */,
+				AF76315420372EE200857B57 /* WebRequest.swift in Sources */,
 				AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */,
 				AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */,
 				AFA47D7B20189EA4004BB9DB /* TabOverview.swift in Sources */,
-				AF42149B200F578E00A3E71D /* InterceptorURLProtocol.swift in Sources */,
+				AF76314D20372EE200857B57 /* BlockedRequestsCache.swift in Sources */,
 				AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */,
 				AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */,
+				AF76315320372EE200857B57 /* JSBridgeBridge.m in Sources */,
+				AF76315120372EE200857B57 /* InterceptorURLProtocol.swift in Sources */,
 				AF89863E1FFF7A5900B372E0 /* WebView.swift in Sources */,
 				AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */,
 				AF8986401FFF7ED500B372E0 /* URLBar.swift in Sources */,
+				AF76315620372EE200857B57 /* NSURLProtocol+WKWebViewSupport.m in Sources */,
+				AF76314A20372EE200857B57 /* AdblockingModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +553,7 @@
 			baseConfigurationReference = 2DE80264CC9DEE5838052046 /* Pods-BrowserCore.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UYYSSHVUH;
 				INFOPLIST_FILE = Info.plist;
@@ -487,6 +561,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tim.BrowserCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BrowserCore/OldAntitracking/BrowserCore-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -497,6 +573,7 @@
 			baseConfigurationReference = D775863DC09CAA8FBDEBC6FD /* Pods-BrowserCore.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2UYYSSHVUH;
 				INFOPLIST_FILE = Info.plist;
@@ -504,6 +581,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tim.BrowserCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BrowserCore/OldAntitracking/BrowserCore-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
