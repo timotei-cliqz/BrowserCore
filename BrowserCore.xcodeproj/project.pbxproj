@@ -16,7 +16,6 @@
 		AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */; };
 		AF3B5C54201A254C00EF37EA /* URIFixup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C53201A254C00EF37EA /* URIFixup.swift */; };
 		AF3DC4852032E95600F54C3C /* AdBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DC4842032E95600F54C3C /* AdBlocker.swift */; };
-		AF42149B200F578E00A3E71D /* InterceptorURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */; };
 		AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */; };
 		AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */; };
 		AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89862B1FFF795200B372E0 /* AppDelegate.swift */; };
@@ -34,13 +33,8 @@
 		AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */; };
 		AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FFA200CAEA900D40ABB /* RealmStore.swift */; };
 		AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FFC200CBDC000D40ABB /* HistoryController.swift */; };
-		AFF248A1203C25EE0008BFAF /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF24898203C25EE0008BFAF /* data.json */; };
-		AFF248A2203C25EE0008BFAF /* data_copy.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF24899203C25EE0008BFAF /* data_copy.json */; };
-		AFF248A3203C25EE0008BFAF /* data_second.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF2489A203C25EE0008BFAF /* data_second.json */; };
-		AFF248A4203C25EE0008BFAF /* filter1.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF2489B203C25EE0008BFAF /* filter1.json */; };
-		AFF248A5203C25EE0008BFAF /* filter1_1.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF2489C203C25EE0008BFAF /* filter1_1.json */; };
-		AFF248A6203C25EE0008BFAF /* filter1_1_1.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF2489D203C25EE0008BFAF /* filter1_1_1.json */; };
-		AFF248A7203C25EE0008BFAF /* ghostery.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF2489E203C25EE0008BFAF /* ghostery.json */; };
+		AFD55572203DB1BC00292136 /* preload.js in Resources */ = {isa = PBXBuildFile; fileRef = AFD55570203DB1BC00292136 /* preload.js */; };
+		AFD55573203DB1BC00292136 /* postload.js in Resources */ = {isa = PBXBuildFile; fileRef = AFD55571203DB1BC00292136 /* postload.js */; };
 		AFF248A9203C25EE0008BFAF /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = AFF248A0203C25EE0008BFAF /* script.js */; };
 		AFF248AB203C28860008BFAF /* ghostery_content_blocker.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF248AA203C28860008BFAF /* ghostery_content_blocker.json */; };
 /* End PBXBuildFile section */
@@ -56,7 +50,6 @@
 		AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleTableView.swift; sourceTree = "<group>"; };
 		AF3B5C53201A254C00EF37EA /* URIFixup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URIFixup.swift; sourceTree = "<group>"; };
 		AF3DC4842032E95600F54C3C /* AdBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBlocker.swift; sourceTree = "<group>"; };
-		AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorURLProtocol.swift; sourceTree = "<group>"; };
 		AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWKWebView.swift; sourceTree = "<group>"; };
 		AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewHistory.swift; sourceTree = "<group>"; };
 		AF8986281FFF795200B372E0 /* BrowserCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrowserCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,13 +69,8 @@
 		AFB65FF8200CAD4C00D40ABB /* GeneralHistoryModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralHistoryModule.swift; sourceTree = "<group>"; };
 		AFB65FFA200CAEA900D40ABB /* RealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStore.swift; sourceTree = "<group>"; };
 		AFB65FFC200CBDC000D40ABB /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
-		AFF24898203C25EE0008BFAF /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
-		AFF24899203C25EE0008BFAF /* data_copy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data_copy.json; sourceTree = "<group>"; };
-		AFF2489A203C25EE0008BFAF /* data_second.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data_second.json; sourceTree = "<group>"; };
-		AFF2489B203C25EE0008BFAF /* filter1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = filter1.json; sourceTree = "<group>"; };
-		AFF2489C203C25EE0008BFAF /* filter1_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = filter1_1.json; sourceTree = "<group>"; };
-		AFF2489D203C25EE0008BFAF /* filter1_1_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = filter1_1_1.json; sourceTree = "<group>"; };
-		AFF2489E203C25EE0008BFAF /* ghostery.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ghostery.json; sourceTree = "<group>"; };
+		AFD55570203DB1BC00292136 /* preload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = preload.js; sourceTree = "<group>"; };
+		AFD55571203DB1BC00292136 /* postload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = postload.js; sourceTree = "<group>"; };
 		AFF248A0203C25EE0008BFAF /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
 		AFF248AA203C28860008BFAF /* ghostery_content_blocker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ghostery_content_blocker.json; sourceTree = "<group>"; };
 		D775863DC09CAA8FBDEBC6FD /* Pods-BrowserCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrowserCore.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrowserCore/Pods-BrowserCore.release.xcconfig"; sourceTree = "<group>"; };
@@ -209,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				AF8986411FFF7F5400B372E0 /* StateAnimator.swift */,
-				AF42149A200F578E00A3E71D /* InterceptorURLProtocol.swift */,
 				AF3B5C53201A254C00EF37EA /* URIFixup.swift */,
 			);
 			path = Utils;
@@ -238,13 +225,8 @@
 			isa = PBXGroup;
 			children = (
 				AFF248AA203C28860008BFAF /* ghostery_content_blocker.json */,
-				AFF24898203C25EE0008BFAF /* data.json */,
-				AFF24899203C25EE0008BFAF /* data_copy.json */,
-				AFF2489A203C25EE0008BFAF /* data_second.json */,
-				AFF2489B203C25EE0008BFAF /* filter1.json */,
-				AFF2489C203C25EE0008BFAF /* filter1_1.json */,
-				AFF2489D203C25EE0008BFAF /* filter1_1_1.json */,
-				AFF2489E203C25EE0008BFAF /* ghostery.json */,
+				AFD55571203DB1BC00292136 /* postload.js */,
+				AFD55570203DB1BC00292136 /* preload.js */,
 				AFF248A0203C25EE0008BFAF /* script.js */,
 			);
 			path = Assets;
@@ -315,16 +297,11 @@
 			files = (
 				AFA47D7D2018A0BF004BB9DB /* Info.plist in Resources */,
 				AF8986361FFF795200B372E0 /* LaunchScreen.storyboard in Resources */,
-				AFF248A2203C25EE0008BFAF /* data_copy.json in Resources */,
-				AFF248A4203C25EE0008BFAF /* filter1.json in Resources */,
 				AFF248AB203C28860008BFAF /* ghostery_content_blocker.json in Resources */,
-				AFF248A3203C25EE0008BFAF /* data_second.json in Resources */,
 				AF8986331FFF795200B372E0 /* Assets.xcassets in Resources */,
+				AFD55572203DB1BC00292136 /* preload.js in Resources */,
+				AFD55573203DB1BC00292136 /* postload.js in Resources */,
 				AFF248A9203C25EE0008BFAF /* script.js in Resources */,
-				AFF248A1203C25EE0008BFAF /* data.json in Resources */,
-				AFF248A6203C25EE0008BFAF /* filter1_1_1.json in Resources */,
-				AFF248A5203C25EE0008BFAF /* filter1_1.json in Resources */,
-				AFF248A7203C25EE0008BFAF /* ghostery.json in Resources */,
 				AF8986311FFF795200B372E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,7 +376,6 @@
 				AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */,
 				AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */,
 				AFA47D7B20189EA4004BB9DB /* TabOverview.swift in Sources */,
-				AF42149B200F578E00A3E71D /* InterceptorURLProtocol.swift in Sources */,
 				AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */,
 				AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */,
 				AF89863E1FFF7A5900B372E0 /* WebView.swift in Sources */,

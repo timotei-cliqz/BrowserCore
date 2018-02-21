@@ -30,25 +30,37 @@ class AdBlocker: NSObject {
     }
     
     func disable() {
-        self.webView.configuration.userContentController.removeAllContentRuleLists()
         self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "focusTrackingProtection")
+        self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "focusTrackingProtectionPostLoad")
+        self.webView.configuration.userContentController.removeAllContentRuleLists()
         self.webView.configuration.userContentController.removeAllUserScripts()
     }
     
+    //TODO: This does not work for multiple tabs yet.
     private func setupUserScripts() {
         self.webView.configuration.userContentController.add(self, name: "focusTrackingProtection")
-        let source = try! String(contentsOf: Bundle.main.url(forResource: "script", withExtension: "js")!)
-        let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        let source = try! String(contentsOf: Bundle.main.url(forResource: "preload", withExtension: "js")!)
+        let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
         self.webView.configuration.userContentController.addUserScript(script)
+        
+        self.webView.configuration.userContentController.add(self, name: "focusTrackingProtectionPostLoad")
+        let source2 = try! String(contentsOf: Bundle.main.url(forResource: "postload", withExtension: "js")!)
+        let script2 = WKUserScript(source: source2, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+        self.webView.configuration.userContentController.addUserScript(script2)
     }
 }
 
 extension AdBlocker: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        debugPrint("message - \(message)")
         guard let body = message.body as? [String: String],
-            let msg = body["msg"] else { return }
-        debugPrint("msg = \(msg)")
+        let urlString = body["url"] else { return }
+        
+        guard var components = URLComponents(string: urlString) else { return }
+        components.scheme = "http"
+        guard let url = components.url else { return }
+        
+        //here: check if it is blocked.
+        debugPrint("url = \(url)")
     }
 }
 
