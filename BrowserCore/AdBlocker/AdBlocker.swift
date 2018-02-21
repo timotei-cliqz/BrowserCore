@@ -8,11 +8,12 @@
 
 import UIKit
 
-class AdBlocker {
+class AdBlocker: NSObject {
     unowned let webView: CustomWKWebView
     
     init(webView: CustomWKWebView) {
         self.webView = webView
+        super.init()
     }
     
     func enable() {
@@ -25,10 +26,29 @@ class AdBlocker {
                 lists.forEach(self.webView.configuration.userContentController.add)
             }
         }
+        setupUserScripts()
     }
     
     func disable() {
         self.webView.configuration.userContentController.removeAllContentRuleLists()
+        self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "focusTrackingProtection")
+        self.webView.configuration.userContentController.removeAllUserScripts()
+    }
+    
+    private func setupUserScripts() {
+        self.webView.configuration.userContentController.add(self, name: "focusTrackingProtection")
+        let source = try! String(contentsOf: Bundle.main.url(forResource: "script", withExtension: "js")!)
+        let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        self.webView.configuration.userContentController.addUserScript(script)
+    }
+}
+
+extension AdBlocker: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        debugPrint("message - \(message)")
+        guard let body = message.body as? [String: String],
+            let msg = body["msg"] else { return }
+        debugPrint("msg = \(msg)")
     }
 }
 
