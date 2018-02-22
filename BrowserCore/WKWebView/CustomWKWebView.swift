@@ -29,8 +29,6 @@ class CustomWKWebView: WKWebView {
     
     fileprivate var internalHistory: WebViewHistory? = nil
     
-    fileprivate var adBlocker: AdBlocker? = nil
-    
     var isPrivate: Bool {
         return !self.configuration.websiteDataStore.isPersistent
     }
@@ -59,8 +57,8 @@ class CustomWKWebView: WKWebView {
             }
         })
         
-        adBlocker = AdBlocker(webView: self)
-        adBlocker?.enable()
+        AdBlocker.shared.enable(on: self)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -136,10 +134,10 @@ extension CustomWKWebView: WKNavigationDelegate {
 //        completionHandler(.cancelAuthenticationChallenge, nil)
 //    }
     
-//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-//        debugPrint("decide policy")
-//        decisionHandler(.allow)
-//    }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        debugPrint("decide policy")
+        decisionHandler(.allow)
+    }
 //
 //    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
 //        debugPrint("didReceiveServerRedirectForProvisionalNavigation")

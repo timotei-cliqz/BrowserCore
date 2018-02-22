@@ -35,6 +35,15 @@
 		AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB65FFC200CBDC000D40ABB /* HistoryController.swift */; };
 		AFD55572203DB1BC00292136 /* preload.js in Resources */ = {isa = PBXBuildFile; fileRef = AFD55570203DB1BC00292136 /* preload.js */; };
 		AFD55573203DB1BC00292136 /* postload.js in Resources */ = {isa = PBXBuildFile; fileRef = AFD55571203DB1BC00292136 /* postload.js */; };
+		AFD55583203DC75600292136 /* PageTrackersFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5557A203DC75500292136 /* PageTrackersFound.swift */; };
+		AFD55584203DC75600292136 /* TrackerListRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5557B203DC75500292136 /* TrackerListRegex.swift */; };
+		AFD55585203DC75600292136 /* TrieNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5557C203DC75500292136 /* TrieNode.swift */; };
+		AFD55586203DC75600292136 /* TrackerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5557D203DC75500292136 /* TrackerList.swift */; };
+		AFD55587203DC75600292136 /* TrackerListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5557E203DC75500292136 /* TrackerListApp.swift */; };
+		AFD55588203DC75600292136 /* TrackerListBug.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD5557F203DC75600292136 /* TrackerListBug.swift */; };
+		AFD55589203DC75600292136 /* TrackerListHostPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD55580203DC75600292136 /* TrackerListHostPaths.swift */; };
+		AFD5558A203DC75600292136 /* TrackerListHosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD55581203DC75600292136 /* TrackerListHosts.swift */; };
+		AFD5558B203DC75600292136 /* TrackerListPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD55582203DC75600292136 /* TrackerListPath.swift */; };
 		AFF248A9203C25EE0008BFAF /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = AFF248A0203C25EE0008BFAF /* script.js */; };
 		AFF248AB203C28860008BFAF /* ghostery_content_blocker.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF248AA203C28860008BFAF /* ghostery_content_blocker.json */; };
 /* End PBXBuildFile section */
@@ -71,6 +80,15 @@
 		AFB65FFC200CBDC000D40ABB /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
 		AFD55570203DB1BC00292136 /* preload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = preload.js; sourceTree = "<group>"; };
 		AFD55571203DB1BC00292136 /* postload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = postload.js; sourceTree = "<group>"; };
+		AFD5557A203DC75500292136 /* PageTrackersFound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTrackersFound.swift; sourceTree = "<group>"; };
+		AFD5557B203DC75500292136 /* TrackerListRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerListRegex.swift; sourceTree = "<group>"; };
+		AFD5557C203DC75500292136 /* TrieNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrieNode.swift; sourceTree = "<group>"; };
+		AFD5557D203DC75500292136 /* TrackerList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerList.swift; sourceTree = "<group>"; };
+		AFD5557E203DC75500292136 /* TrackerListApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerListApp.swift; sourceTree = "<group>"; };
+		AFD5557F203DC75600292136 /* TrackerListBug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerListBug.swift; sourceTree = "<group>"; };
+		AFD55580203DC75600292136 /* TrackerListHostPaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerListHostPaths.swift; sourceTree = "<group>"; };
+		AFD55581203DC75600292136 /* TrackerListHosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerListHosts.swift; sourceTree = "<group>"; };
+		AFD55582203DC75600292136 /* TrackerListPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerListPath.swift; sourceTree = "<group>"; };
 		AFF248A0203C25EE0008BFAF /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
 		AFF248AA203C28860008BFAF /* ghostery_content_blocker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ghostery_content_blocker.json; sourceTree = "<group>"; };
 		D775863DC09CAA8FBDEBC6FD /* Pods-BrowserCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrowserCore.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrowserCore/Pods-BrowserCore.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +136,7 @@
 		AF3DC4812032E87D00F54C3C /* AdBlocker */ = {
 			isa = PBXGroup;
 			children = (
+				AFD55579203DC72700292136 /* TrackingManagement */,
 				AFF24897203C25EE0008BFAF /* Assets */,
 				AF3DC4842032E95600F54C3C /* AdBlocker.swift */,
 			);
@@ -219,6 +238,22 @@
 				AFA47D7A20189EA4004BB9DB /* TabOverview.swift */,
 			);
 			path = "Util UI";
+			sourceTree = "<group>";
+		};
+		AFD55579203DC72700292136 /* TrackingManagement */ = {
+			isa = PBXGroup;
+			children = (
+				AFD5557A203DC75500292136 /* PageTrackersFound.swift */,
+				AFD5557D203DC75500292136 /* TrackerList.swift */,
+				AFD5557E203DC75500292136 /* TrackerListApp.swift */,
+				AFD5557F203DC75600292136 /* TrackerListBug.swift */,
+				AFD55580203DC75600292136 /* TrackerListHostPaths.swift */,
+				AFD55581203DC75600292136 /* TrackerListHosts.swift */,
+				AFD55582203DC75600292136 /* TrackerListPath.swift */,
+				AFD5557B203DC75500292136 /* TrackerListRegex.swift */,
+				AFD5557C203DC75500292136 /* TrieNode.swift */,
+			);
+			path = TrackingManagement;
 			sourceTree = "<group>";
 		};
 		AFF24897203C25EE0008BFAF /* Assets */ = {
@@ -363,7 +398,9 @@
 			files = (
 				AF3B5C4C201A135400EF37EA /* BubbleLeftCell.swift in Sources */,
 				AFA476CD203C564500EBFBD3 /* Test.m in Sources */,
+				AFD55587203DC75600292136 /* TrackerListApp.swift in Sources */,
 				AFB65FFD200CBDC000D40ABB /* HistoryController.swift in Sources */,
+				AFD55588203DC75600292136 /* TrackerListBug.swift in Sources */,
 				AFA47D7520188BC2004BB9DB /* WebViewContainer.swift in Sources */,
 				AF3B5C4B201A135400EF37EA /* BubbleRightCell.swift in Sources */,
 				AF0A3F3D2003A16D005D6321 /* WebViewBackForwardList.swift in Sources */,
@@ -371,15 +408,22 @@
 				AF37010D2017837900798D69 /* TabManager.swift in Sources */,
 				AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */,
 				AF00F21020064F0B001C070D /* CIToolBar.swift in Sources */,
+				AFD55583203DC75600292136 /* PageTrackersFound.swift in Sources */,
 				AF3B5C54201A254C00EF37EA /* URIFixup.swift in Sources */,
+				AFD55584203DC75600292136 /* TrackerListRegex.swift in Sources */,
+				AFD5558A203DC75600292136 /* TrackerListHosts.swift in Sources */,
+				AFD55589203DC75600292136 /* TrackerListHostPaths.swift in Sources */,
 				AF8986421FFF7F5400B372E0 /* StateAnimator.swift in Sources */,
+				AFD55586203DC75600292136 /* TrackerList.swift in Sources */,
 				AFB65FF9200CAD4C00D40ABB /* GeneralHistoryModule.swift in Sources */,
 				AF89862E1FFF795200B372E0 /* ViewController.swift in Sources */,
 				AFA47D7B20189EA4004BB9DB /* TabOverview.swift in Sources */,
 				AFB65FFB200CAEA900D40ABB /* RealmStore.swift in Sources */,
 				AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */,
+				AFD55585203DC75600292136 /* TrieNode.swift in Sources */,
 				AF89863E1FFF7A5900B372E0 /* WebView.swift in Sources */,
 				AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */,
+				AFD5558B203DC75600292136 /* TrackerListPath.swift in Sources */,
 				AF3DC4852032E95600F54C3C /* AdBlocker.swift in Sources */,
 				AF8986401FFF7ED500B372E0 /* URLBar.swift in Sources */,
 			);

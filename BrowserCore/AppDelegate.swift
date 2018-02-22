@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //init GeneralHistory
         let _ = GeneralHistoryModule.shared
+        TrackerList.instance.loadTrackerList()
         
         return true
     }

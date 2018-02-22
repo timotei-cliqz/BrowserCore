@@ -9,58 +9,68 @@
 import UIKit
 
 class AdBlocker: NSObject {
-    unowned let webView: CustomWKWebView
     
-    init(webView: CustomWKWebView) {
-        self.webView = webView
+    static let shared = AdBlocker()
+    
+    override init() {
         super.init()
     }
     
-    func enable() {
+    func enable(on webView: CustomWKWebView) {
         debugPrint("Enabling AdBlocker")
         ContentBlockerHelper.shared.getBlockLists { lists in
             debugPrint("lists - Done")
             DispatchQueue.main.async {
                 debugPrint("adding the blocklists to the webView")
-                self.webView.configuration.userContentController.removeAllContentRuleLists()
-                lists.forEach(self.webView.configuration.userContentController.add)
+                webView.configuration.userContentController.removeAllContentRuleLists()
+                lists.forEach(webView.configuration.userContentController.add)
             }
         }
-        setupUserScripts()
+        setupUserScripts(on: webView)
     }
     
-    func disable() {
-        self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "focusTrackingProtection")
-        self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "focusTrackingProtectionPostLoad")
-        self.webView.configuration.userContentController.removeAllContentRuleLists()
-        self.webView.configuration.userContentController.removeAllUserScripts()
+    func disable(on webView: CustomWKWebView) {
+        webView.configuration.userContentController.removeAllContentRuleLists()
+        webView.configuration.userContentController.removeAllUserScripts()
     }
     
-    //TODO: This does not work for multiple tabs yet.
-    private func setupUserScripts() {
-        self.webView.configuration.userContentController.add(self, name: "focusTrackingProtection")
+    fileprivate func setupUserScripts(on webView: CustomWKWebView) {
+
         let source = try! String(contentsOf: Bundle.main.url(forResource: "preload", withExtension: "js")!)
         let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
-        self.webView.configuration.userContentController.addUserScript(script)
+        webView.configuration.userContentController.addUserScript(script)
         
-        self.webView.configuration.userContentController.add(self, name: "focusTrackingProtectionPostLoad")
         let source2 = try! String(contentsOf: Bundle.main.url(forResource: "postload", withExtension: "js")!)
         let script2 = WKUserScript(source: source2, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-        self.webView.configuration.userContentController.addUserScript(script2)
+        webView.configuration.userContentController.addUserScript(script2)
     }
 }
 
 extension AdBlocker: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let body = message.body as? [String: String],
-        let urlString = body["url"] else { return }
+        
+        guard let body = message.body as? [String: String], let urlString = body["url"], let pageUrl = body["location"] else { return }
         
         guard var components = URLComponents(string: urlString) else { return }
         components.scheme = "http"
         guard let url = components.url else { return }
         
         //here: check if it is blocked.
-        debugPrint("url = \(url)")
+        //debugPrint("page = \(page)")
+        let timestamp = Date().timeIntervalSince1970
+        //TODO: Maybe 2 tabs are loading requests at the same time. This works with the assumption that there is only one tab loading at one time.
+        //Added code in TabManager that makes sure this assumption holds.
+
+        if let pageURL = URL(string: pageUrl) {
+            let _ = TrackerList.instance.isTracker(url, pageUrl: pageURL, timestamp: timestamp)
+        }
+        
+        let array = TrackerList.instance.detectedTrackersForPage(pageUrl).map({ (app) -> String in
+            return app.name
+        })
+        debugPrint("urlString = \(urlString)")
+        debugPrint("mainDocURL = \(pageUrl) | trackers = \(array) | count = \(array.count)")
+        
     }
 }
 
