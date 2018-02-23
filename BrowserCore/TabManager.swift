@@ -26,8 +26,8 @@ class TabManager: NSObject {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = WKProcessPool()
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = true
-        configuration.userContentController.add(AdBlocker.shared, name: "focusTrackingProtection")
-        configuration.userContentController.add(AdBlocker.shared, name: "focusTrackingProtectionPostLoad")
+        configuration.userContentController.add(Antitracking.shared, name: "focusTrackingProtection")
+        configuration.userContentController.add(Antitracking.shared, name: "focusTrackingProtectionPostLoad")
         return configuration
     }()
     
@@ -37,8 +37,8 @@ class TabManager: NSObject {
         configuration.processPool = WKProcessPool()
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = false
         configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
-        configuration.userContentController.add(AdBlocker.shared, name: "focusTrackingProtection")
-        configuration.userContentController.add(AdBlocker.shared, name: "focusTrackingProtectionPostLoad")
+        configuration.userContentController.add(Antitracking.shared, name: "focusTrackingProtection")
+        configuration.userContentController.add(Antitracking.shared, name: "focusTrackingProtectionPostLoad")
         return configuration
     }()
     

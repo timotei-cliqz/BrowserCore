@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import RealmSwift
 
 let LoadProgressNotification = Notification.Name(rawValue: "LoadProgressNotification")
 let CanGoBackNotification = Notification.Name("CanGoBackNotification")
@@ -29,8 +30,15 @@ class CustomWKWebView: WKWebView {
     
     fileprivate var internalHistory: WebViewHistory? = nil
     
+    var isAntiTrackingOn: Bool = false
+    
     var isPrivate: Bool {
         return !self.configuration.websiteDataStore.isPersistent
+    }
+    
+    enum CustomResponse {
+        case willReload
+        case willNotReload
     }
     
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
@@ -51,13 +59,37 @@ class CustomWKWebView: WKWebView {
         
         urlObservation = self.observe(\.url, changeHandler: {[unowned self] (webView, change) in
             if let url = webView.url, url.absoluteString != self._last_url_string {
+                //URL changed.
+                debugPrint("new URL = \(url.absoluteString)")
+                if self.updateAntitracking(url: url) == .willNotReload {
+                    NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
+                    self.internalHistory?.update()
+                }
                 self._last_url_string = url.absoluteString
-                NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
-                self.internalHistory?.update()
             }
         })
         
-        AdBlocker.shared.enable(on: self)
+        //AdBlocker.shared.enable(on: self)
+    }
+    
+    fileprivate func updateAntitracking(url: URL?) -> CustomResponse {
+        
+        guard let url = url else { return .willNotReload }
+        
+        debugPrint("update antitracking url = \(url.absoluteString)")
+        
+        let shouldAntitrack = DomainBlacklist.shouldAntitrackingBeEnabled(on: url.host)
+        
+        if shouldAntitrack != isAntiTrackingOn {
+            if shouldAntitrack == true {
+                Antitracking.shared.enable(on: self)
+            } else {
+                Antitracking.shared.disable(on: self)
+            }
+            return .willReload
+        }
+       
+        return .willNotReload
         
     }
     
@@ -136,6 +168,9 @@ extension CustomWKWebView: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         debugPrint("decide policy")
+        
+        //self.updateAntitracking(url: navigationAction.request.url)
+        
         decisionHandler(.allow)
     }
 //

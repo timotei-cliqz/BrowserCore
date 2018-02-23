@@ -8,28 +8,33 @@
 
 import UIKit
 
-class AdBlocker: NSObject {
+class Antitracking: NSObject {
     
-    static let shared = AdBlocker()
+    static let shared = Antitracking()
     
     override init() {
         super.init()
     }
     
     func enable(on webView: CustomWKWebView) {
-        debugPrint("Enabling AdBlocker")
+        debugPrint("Enabling Antitracking")
+        
+        webView.isAntiTrackingOn = true
+        
+        setupUserScripts(on: webView)
         ContentBlockerHelper.shared.getBlockLists { lists in
-            debugPrint("lists - Done")
             DispatchQueue.main.async {
-                debugPrint("adding the blocklists to the webView")
                 webView.configuration.userContentController.removeAllContentRuleLists()
                 lists.forEach(webView.configuration.userContentController.add)
             }
         }
-        setupUserScripts(on: webView)
     }
     
     func disable(on webView: CustomWKWebView) {
+        debugPrint("Disabling Antitracking")
+        
+        webView.isAntiTrackingOn = false
+        
         webView.configuration.userContentController.removeAllContentRuleLists()
         webView.configuration.userContentController.removeAllUserScripts()
     }
@@ -46,7 +51,7 @@ class AdBlocker: NSObject {
     }
 }
 
-extension AdBlocker: WKScriptMessageHandler {
+extension Antitracking: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
         guard let body = message.body as? [String: String], let urlString = body["url"], let pageUrl = body["location"] else { return }
@@ -68,8 +73,8 @@ extension AdBlocker: WKScriptMessageHandler {
         let array = TrackerList.instance.detectedTrackersForPage(pageUrl).map({ (app) -> String in
             return app.name
         })
-        debugPrint("urlString = \(urlString)")
-        debugPrint("mainDocURL = \(pageUrl) | trackers = \(array) | count = \(array.count)")
+        //debugPrint("urlString = \(urlString)")
+        //debugPrint("mainDocURL = \(pageUrl) | trackers = \(array) | count = \(array.count)")
         
     }
 }
@@ -121,7 +126,7 @@ class ContentBlockerHelper {
     private static func compileItem(item: String, callback: @escaping (WKContentRuleList) -> Void) {
         let path = Bundle.main.path(forResource: item, ofType: "json")!
         guard let jsonFileContent = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) else { fatalError("Rule list for \(item) doesn't exist!") }
-        debugPrint(item)
+        //debugPrint(item)
         WKContentRuleListStore.default().compileContentRuleList(forIdentifier: item, encodedContentRuleList: jsonFileContent) { (ruleList, error) in
             guard let ruleList = ruleList else { fatalError("problem compiling \(item)") }
             callback(ruleList)
