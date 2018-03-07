@@ -17,21 +17,13 @@ struct HistoryEntry {
 
 class WebViewHistory: NSObject {
     
-    enum VicinityStatus {
-        case Changed
-        case NotChanged
-        case Undefined
-    }
-    
     fileprivate unowned var webView: WKWebView
-    
-    fileprivate var _last_currentIndex = -1 //careful if you want this to access array elements. Always check
-    
-    fileprivate var timer: Timer? = nil
     
     fileprivate var _last_forward_count = 0
     
     fileprivate var internalList: [HistoryEntry] = []
+    
+    fileprivate let updateQueue = OperationQueue()
     
     fileprivate var backCount: Int {
         return self.webView.backForwardList.backList.count
@@ -44,12 +36,13 @@ class WebViewHistory: NSObject {
     init(webView: WKWebView) {
         self.webView = webView
         super.init()
+        updateQueue.name = "Update Queue"
+        updateQueue.maxConcurrentOperationCount = 1
+        updateQueue.underlyingQueue = DispatchQueue.main
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        timer?.invalidate()
-        timer = nil
     }
     
     func titleUpdated(new_title: String) {
@@ -62,84 +55,73 @@ class WebViewHistory: NSObject {
     func update() {
         assert(Thread.isMainThread)
         
-        //I waiting for the internal webview history to update
-        //I stop it when it something is modified.
-        self.startTimer()
-
         guard let currentItem = webView.backForwardList.currentItem else { return }
         
-        let currentIndex = backCount
-    
-        let list = webView.backForwardList.backList + [currentItem] + webView.backForwardList.forwardList
-        
-        //debugPrint("currentIndex = \(currentIndex) | forwardCount = \(forwardCount)")
-        
-        //Branching
-        let isCurrentIndexValid = currentIndex >= 0 && currentIndex < internalList.count
-        let urlIsDifferent = isCurrentIndexValid == false ? false : currentItem.url != internalList[currentIndex].url
-        
-        var vicinity: VicinityStatus {
-            if internalList.isIndexValid(index: currentIndex + 1) && list.isIndexValid(index: currentIndex + 1) {
-                if internalList[currentIndex + 1].url == list[currentIndex + 1].url {
-                    return .NotChanged
+        //I want to execute code only when the webview is updated.
+        //currentItem.url == webView.url seems to be the proper way to determine whether the webView has updated or not.
+        if currentItem.url == webView.url {
+            debugPrint("WebView is updated")
+            debugPrint("WebViewURL = \(String(describing: webView.url))")
+            
+            let currentIndex = backCount
+            let list = webView.backForwardList.backList + [currentItem] + webView.backForwardList.forwardList
+            
+            if list.count < internalList.count {
+                //Branched for sure, assuming that internal list is like a previous_list.
+                debugPrint("Branch | list < internal")
+                let number_to_remove = (internalList.count - 1) - currentIndex + 1
+                if  number_to_remove >= 0 && number_to_remove <= internalList.count {
+                    internalList.removeLast(number_to_remove)
                 }
                 else {
-                    return .Changed
+                    debugPrint("number_to_remove is wrong. Check, maybe you are missing a case.")
+                }
+                modifyHistory(action: .Add, item: currentItem, currentIndex: currentIndex)
+            }
+            else if list.count == internalList.count {
+                //here are 2 possibilities. Either a replace or a branch.
+                if internalList.isIndexValid(index: currentIndex), webView.url != internalList[currentIndex].url {
+                    if _last_forward_count > 0 { //this is true of back and forward
+                        debugPrint("Branch | _last_current = \(_last_forward_count) | currentIndex = \(currentIndex)")
+                        internalList.removeLast()
+                        modifyHistory(action: .Add, item: currentItem, currentIndex: currentIndex)
+                    }
+                    else {
+                        debugPrint("Replace")
+                        modifyHistory(action: .Replace, item: currentItem, currentIndex: currentIndex)
+                    }
                 }
             }
-            
-            return .Undefined
-        }
-        
-        if _last_forward_count > 0 && urlIsDifferent && vicinity != .NotChanged {
-            //remove everything from currentIndex..<internalList.count
-            let number_to_remove = (internalList.count - 1) - currentIndex + 1
-            if  number_to_remove >= 0 && number_to_remove <= internalList.count {
-                internalList.removeLast(number_to_remove)
-            }
-            else {
-                debugPrint("number_to_remove is wrong. Check, maybe you are missing a case.")
-            }
-            modifyHistory(action: .Add, item: currentItem, currentIndex: currentIndex)
-        }
-        else {
-            if list.count > internalList.count {
+            else if list.count > internalList.count {
+                //for sure an add.
+                debugPrint("Add")
                 for i in internalList.count..<list.count {
                     let item = list[i]
                     modifyHistory(action: .Add, item: item, currentIndex: currentIndex)
                 }
             }
-            else if list.count == internalList.count {
-                if urlIsDifferent {
-                    modifyHistory(action: .Replace, item: currentItem, currentIndex: currentIndex)
-                }
-            }
-            else {
-                //assumption: items are removed only in case of branching
-                //so this should be handled above.
-            }
+            
+            _last_forward_count = forwardCount
+            
+            //make sure I have updated the internal list properly
+            #if DEBUG
+            assert(internalList.count == list.count)
+            #endif
+            //Update happened. No need to wait anymore.
+            updateQueue.cancelAllOperations()
+            
+            //KEEP RETURN HERE!
+            return
         }
         
-        _last_forward_count = forwardCount
-        _last_currentIndex = currentIndex
-        
-        //this makes sure the timer does not run indefinitely.
-        //Why does this work?
-        //The point of the update is to bring the internalList in sync with the webView history.
-        //That means bringing the internalList[currentIndex] to match with the current item in the webview history.
-        //One way to check if that has happened is to check the internalList[currentIndex].url agains the webview's url, since the webview's url is the same as the url of the current item in the webview history.
-        if internalList.isIndexValid(index: currentIndex) {
-            if internalList[currentIndex].url == webView.url {
-                stopTimer()
-            }
+        //Use queue to wait for the internal webview history to update
+        updateQueue.addOperation {
+            self.update()
         }
-        
+    
     }
     
     fileprivate func modifyHistory(action: WebViewHistoryAction, item: WKBackForwardListItem, currentIndex: Int) {
-        
-        //Stop the timer
-        stopTimer()
         
         if action == .Add {
             let entry = internalList.appendItem(item: item)
@@ -154,29 +136,6 @@ class WebViewHistory: NSObject {
                 NotificationCenter.default.post(name: HistoryReplaceNotification, object: nil, userInfo: ["new_url": entry.url, "old_url": currentUrl, "title": entry.title, "timestamp": entry.timestamp])
             }
         }
-        
-//        debugPrint(internalList.map({ (item) -> URL in
-//            return item.url
-//        }))
-    }
-}
-
-//Timer
-extension WebViewHistory {
-    fileprivate func startTimer() {
-        guard timer == nil else { return }
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-            self.update()
-        })
-        timer?.fire()
-        //debugPrint("Start Timer")
-    }
-    
-    fileprivate func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-        //debugPrint("Stop Timer")
     }
 }
 
