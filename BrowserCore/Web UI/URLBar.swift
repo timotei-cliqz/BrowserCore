@@ -125,19 +125,19 @@ class URLBar: UIView {
         
         textFieldContainer.snp.makeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(44)
+            make.height.equalToSuperview()
         }
         
         backButton.snp.makeConstraints({ (make) in
             make.bottom.equalToSuperview()
             make.right.equalTo(self.snp.left)
-            make.width.height.equalTo(44.0)
+            make.width.height.equalToSuperview()
         })
         
         clearButton.snp.makeConstraints({ (make) in
             make.bottom.equalToSuperview()
             make.left.equalTo(self.snp.right)
-            make.width.height.equalTo(44.0)
+            make.width.height.equalToSuperview()
         })
         
         //set initial constraints
