@@ -63,12 +63,14 @@ class ViewController: UIViewController {
     
     func setConstraints() {
         urlBar.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(64)
+            make.top.equalTo(self.view.snp.topMargin)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(44)
         }
         
         toolBar.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(self.view.snp.bottomMargin)
             make.height.equalTo(50)
         }
         
