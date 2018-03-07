@@ -67,7 +67,7 @@ class WebViewHistory: NSObject {
             let list = webView.backForwardList.backList + [currentItem] + webView.backForwardList.forwardList
             
             if list.count < internalList.count {
-                //Branched for sure, assuming that internal list is like a previous_list.
+                //Branched for sure.
                 debugPrint("Branch | list < internal")
                 let number_to_remove = (internalList.count - 1) - currentIndex + 1
                 if  number_to_remove >= 0 && number_to_remove <= internalList.count {
@@ -80,6 +80,7 @@ class WebViewHistory: NSObject {
             }
             else if list.count == internalList.count {
                 //here are 2 possibilities. Either a replace or a branch.
+                //this check is necessary to elimintate entries from pressing back and forward, for the Branch case. And to make sure we don't replace unncecessarily, for the Replace case.
                 if internalList.isIndexValid(index: currentIndex), webView.url != internalList[currentIndex].url {
                     if _last_forward_count > 0 { //this is true of back and forward
                         debugPrint("Branch | _last_current = \(_last_forward_count) | currentIndex = \(currentIndex)")

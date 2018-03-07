@@ -104,7 +104,7 @@ extension WebViewBackForwardList {
             return
         }
         
-        //Branched
+        
         let updateThisWebViewHistory = notification_url == currentItemUrl()
         let currentIndexInBounds = currentItemIndex > 0 && currentItemIndex < mirroredHistory.count
         var isUrlDifferent = false
@@ -112,6 +112,7 @@ extension WebViewBackForwardList {
             isUrlDifferent = notification_url != mirroredHistory[currentItemIndex].url
         }
         
+        //History Branch
         if _last_forwardCount > 0 && isUrlDifferent && currentIndexInBounds && updateThisWebViewHistory {
             //remove everything from currentItemIndex..<mirroredHistory.count
             let number_to_remove = (mirroredHistory.count - 1) - currentItemIndex + 1
