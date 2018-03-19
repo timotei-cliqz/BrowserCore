@@ -61,36 +61,84 @@ class CustomWKWebView: WKWebView {
             if let url = webView.url, url.absoluteString != self._last_url_string {
                 //URL changed.
                 debugPrint("new URL = \(url.absoluteString)")
-                if self.updateAntitracking(url: url) == .willNotReload {
+                //if self.updateAntitracking(url: url) == .willNotReload {
                     NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
                     self.internalHistory?.update()
-                }
+                //}
                 self._last_url_string = url.absoluteString
             }
         })
         
-        //AdBlocker.shared.enable(on: self)
+        setupUserScripts()
+        //Antitracking.shared.enable(on: self)
+        setupBlocking()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(trackersChanged), name: trackerViewDismissedNotification.name, object: nil)
     }
     
-    fileprivate func updateAntitracking(url: URL?) -> CustomResponse {
+    func setupBlocking() {
         
-        guard let url = url else { return .willNotReload }
-        
-        debugPrint("update antitracking url = \(url.absoluteString)")
-        
-        let shouldAntitrack = DomainBlacklist.shouldAntitrackingBeEnabled(on: url.host)
-        
-        if shouldAntitrack != isAntiTrackingOn {
-            if shouldAntitrack == true {
-                Antitracking.shared.enable(on: self)
-            } else {
-                Antitracking.shared.disable(on: self)
+        if UserPreferences.instance.blockingMode == .all {
+            ContentBlockerHelper.shared.getBlockLists(callback: { (lists) in
+                DispatchQueue.main.async {
+                    self.configuration.userContentController.removeAllContentRuleLists()
+                    lists.forEach(self.configuration.userContentController.add)
+                    debugPrint("Antitracking done")
+                    //self.reload()
+                }
+            })
+        } else if UserPreferences.instance.blockingMode == .selected {
+            let appIds = TrackerStore.shared.all()
+            GhosteryBlockListHelper.shared.getBlockLists(appIds: appIds) { (lists) in
+                DispatchQueue.main.async {
+                    self.configuration.userContentController.removeAllContentRuleLists()
+                    lists.forEach(self.configuration.userContentController.add)
+                    debugPrint("Antitracking done")
+                    //self.reload()
+                }
             }
-            return .willReload
         }
-       
-        return .willNotReload
+        else if UserPreferences.instance.blockingMode == .none {
+            DispatchQueue.main.async {
+                self.configuration.userContentController.removeAllContentRuleLists()
+            }
+        }
+    }
+    
+    @objc func trackersChanged(_ notification: Notification) {
+        setupBlocking()
+    }
+    
+//    fileprivate func updateAntitracking(url: URL?) -> CustomResponse {
+//        
+//        guard let url = url else { return .willNotReload }
+//        
+//        //debugPrint("update antitracking url = \(url.absoluteString)")
+//        
+//        let shouldAntitrack = DomainBlacklist.shouldAntitrackingBeEnabled(on: url.host)
+//        
+//        if shouldAntitrack != isAntiTrackingOn {
+//            if shouldAntitrack == true {
+//                //Antitracking.shared.enable(on: self)
+//            } else {
+//                //Antitracking.shared.disable(on: self)
+//            }
+//            return .willReload
+//        }
+//       
+//        return .willNotReload
+//        
+//    }
+    
+    fileprivate func setupUserScripts() {
         
+        let source = try! String(contentsOf: Bundle.main.url(forResource: "preload", withExtension: "js")!)
+        let script = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+        self.configuration.userContentController.addUserScript(script)
+        
+        let source2 = try! String(contentsOf: Bundle.main.url(forResource: "postload", withExtension: "js")!)
+        let script2 = WKUserScript(source: source2, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+        self.configuration.userContentController.addUserScript(script2)
     }
     
     required init?(coder: NSCoder) {
@@ -103,6 +151,7 @@ class CustomWKWebView: WKWebView {
     }
     
     deinit {
+        self.configuration.userContentController.removeAllUserScripts()
         //removal of the url observation needs some time.
         //so remove it before the webview is deinited.
         //since only the Tab Manager is supposed to have a strong reference to a webView
@@ -145,20 +194,20 @@ class CustomWKWebView: WKWebView {
 extension CustomWKWebView: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        debugPrint("didStartProvisionalNavigation")
+        //debugPrint("didStartProvisionalNavigation")
     }
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        debugPrint("didCommit")
+        //debugPrint("didCommit")
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        debugPrint("didFinish -- \(String(describing: self.url))")
+        //debugPrint("didFinish -- \(String(describing: self.url))")
         //self.internalHistory?.update()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        debugPrint("didFail")
+        //debugPrint("didFail")
     }
     
 //    func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

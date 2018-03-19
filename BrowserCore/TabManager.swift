@@ -26,8 +26,8 @@ class TabManager: NSObject {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = WKProcessPool()
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = true
-        configuration.userContentController.add(Antitracking.shared, name: "focusTrackingProtection")
-        configuration.userContentController.add(Antitracking.shared, name: "focusTrackingProtectionPostLoad")
+        configuration.userContentController.add(URLInterceptor.shared, name: "focusTrackingProtection")
+        configuration.userContentController.add(URLInterceptor.shared, name: "focusTrackingProtectionPostLoad")
         return configuration
     }()
     
@@ -37,8 +37,8 @@ class TabManager: NSObject {
         configuration.processPool = WKProcessPool()
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = false
         configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
-        configuration.userContentController.add(Antitracking.shared, name: "focusTrackingProtection")
-        configuration.userContentController.add(Antitracking.shared, name: "focusTrackingProtectionPostLoad")
+        configuration.userContentController.add(URLInterceptor.shared, name: "focusTrackingProtection")
+        configuration.userContentController.add(URLInterceptor.shared, name: "focusTrackingProtectionPostLoad")
         return configuration
     }()
     
@@ -48,12 +48,6 @@ class TabManager: NSObject {
     
     func selectTab(tab: CustomWKWebView) {
         selectedTab = tab
-        //makes sure only one tab is loading at one time
-        tabs.forEach { (webView) in
-            if webView != selectedTab {
-                webView.stopLoading()
-            }
-        }
         NotificationCenter.default.post(name: TabSelectedNotification, object: self, userInfo: ["tab": tab])
     }
     

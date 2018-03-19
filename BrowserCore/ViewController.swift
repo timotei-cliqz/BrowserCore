@@ -190,8 +190,15 @@ extension ViewController: CIToolBarDelegate {
     }
     
     func middlePressed() {
-        let tab = TabManager.shared.addTab(privateTab: false)
-        TabManager.shared.selectTab(tab: tab)
+//        let tab = TabManager.shared.addTab(privateTab: false)
+//        TabManager.shared.selectTab(tab: tab)
+        
+        let trackersVC = TrackersController()
+        if let pageUrl = TabManager.shared.selectedTab?.url?.absoluteString {
+            trackersVC.trackers = TrackerList.instance.detectedTrackersForPage(pageUrl)
+        }
+        self.present(trackersVC, animated: true, completion: nil)
+        
     }
     
     func sharePressed() {

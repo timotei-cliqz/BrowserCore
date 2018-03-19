@@ -60,15 +60,15 @@ class WebViewHistory: NSObject {
         //I want to execute code only when the webview is updated.
         //currentItem.url == webView.url seems to be the proper way to determine whether the webView has updated or not.
         if currentItem.url == webView.url {
-            debugPrint("WebView is updated")
-            debugPrint("WebViewURL = \(String(describing: webView.url))")
+            //debugPrint("WebView is updated")
+            //debugPrint("WebViewURL = \(String(describing: webView.url))")
             
             let currentIndex = backCount
             let list = webView.backForwardList.backList + [currentItem] + webView.backForwardList.forwardList
             
             if list.count < internalList.count {
                 //Branched for sure, assuming that internal list is like a previous_list.
-                debugPrint("Branch | list < internal")
+                //debugPrint("Branch | list < internal")
                 let number_to_remove = (internalList.count - 1) - currentIndex + 1
                 if  number_to_remove >= 0 && number_to_remove <= internalList.count {
                     internalList.removeLast(number_to_remove)
@@ -82,19 +82,19 @@ class WebViewHistory: NSObject {
                 //here are 2 possibilities. Either a replace or a branch.
                 if internalList.isIndexValid(index: currentIndex), webView.url != internalList[currentIndex].url {
                     if _last_forward_count > 0 { //this is true of back and forward
-                        debugPrint("Branch | _last_current = \(_last_forward_count) | currentIndex = \(currentIndex)")
+                        //debugPrint("Branch | _last_current = \(_last_forward_count) | currentIndex = \(currentIndex)")
                         internalList.removeLast()
                         modifyHistory(action: .Add, item: currentItem, currentIndex: currentIndex)
                     }
                     else {
-                        debugPrint("Replace")
+                        //debugPrint("Replace")
                         modifyHistory(action: .Replace, item: currentItem, currentIndex: currentIndex)
                     }
                 }
             }
             else if list.count > internalList.count {
                 //for sure an add.
-                debugPrint("Add")
+                //debugPrint("Add")
                 for i in internalList.count..<list.count {
                     let item = list[i]
                     modifyHistory(action: .Add, item: item, currentIndex: currentIndex)

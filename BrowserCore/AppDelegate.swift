@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //init GeneralHistory
         let _ = GeneralHistoryModule.shared
         TrackerList.instance.loadTrackerList()
+        //compiles block lists
+        let _ = GhosteryBlockListHelper.shared
         
         return true
     }
