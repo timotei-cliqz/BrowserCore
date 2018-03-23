@@ -27,6 +27,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
+let trackersLoadedNotification = Notification.Name(rawValue:"TrackersLoadedNotification")
 
 @objc class TrackerList : NSObject {
     static let instance = TrackerList()
@@ -38,6 +39,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     
     var apps = [Int: TrackerListApp]()   // App ID is the key
     var bugs = [Int: Int]()              // Bug ID is the key, AppId is the value
+    var app2bug = [Int: [Int]]()           // App ID is the key, Bug ID array is the value
     var hosts = TrackerListHosts()
     var hostPaths = TrackerListHostPaths()
     var regexes = [TrackerListRegex]()
@@ -158,6 +160,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
                 }
                 
                 debugPrint("Tracker data loaded.")
+                NotificationCenter.default.post(name: trackersLoadedNotification, object: nil)
             }
         }
         catch {
@@ -181,6 +184,12 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
                 if let value = valueObject as? [String: NSNumber] {
                     if let appId = value["aid"] {
                         bugs[bugId] = appId.intValue
+                        if let _ = app2bug[appId.intValue] {
+                            app2bug[appId.intValue]?.append(bugId)
+                        }
+                        else {
+                            app2bug[appId.intValue] = [bugId]
+                        }
                     }
                 }
             }

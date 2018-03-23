@@ -104,6 +104,7 @@ extension TrackersController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = trackers[indexPath.row].name
         cell.toggle.isOn = trackers[indexPath.row].isBlocked
         cell.appId = trackers[indexPath.row].appId
+        cell.delegate = self
         
         return cell
     }
@@ -155,10 +156,26 @@ extension TrackersController: UITableViewDataSource, UITableViewDelegate {
      */
 }
 
+extension TrackersController: CellDelegate {
+    func toggled(appId: Int) {
+        for tracker in trackers {
+            if tracker.appId == appId {
+                tracker.isBlocked = !tracker.isBlocked
+                break
+            }
+        }
+    }
+}
+
+protocol CellDelegate {
+    func toggled(appId: Int)
+}
 
 class CustomCell: UITableViewCell {
     let toggle = UISwitch()
     var appId: Int = 0
+    
+    lazy var delegate: CellDelegate? = nil
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -180,6 +197,8 @@ class CustomCell: UITableViewCell {
         else {
             TrackerStore.shared.remove(member: self.appId)
         }
+        
+        delegate?.toggled(appId: self.appId)
     }
     
     required init?(coder aDecoder: NSCoder) {

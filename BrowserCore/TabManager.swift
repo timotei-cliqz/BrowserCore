@@ -26,8 +26,8 @@ class TabManager: NSObject {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = WKProcessPool()
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = true
-        configuration.userContentController.add(URLInterceptor.shared, name: "focusTrackingProtection")
-        configuration.userContentController.add(URLInterceptor.shared, name: "focusTrackingProtectionPostLoad")
+        configuration.userContentController.add(URLInterceptor.shared, name: "cliqzTrackingProtection")
+        configuration.userContentController.add(URLInterceptor.shared, name: "cliqzTrackingProtectionPostLoad")
         return configuration
     }()
     
@@ -37,8 +37,8 @@ class TabManager: NSObject {
         configuration.processPool = WKProcessPool()
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = false
         configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
-        configuration.userContentController.add(URLInterceptor.shared, name: "focusTrackingProtection")
-        configuration.userContentController.add(URLInterceptor.shared, name: "focusTrackingProtectionPostLoad")
+        configuration.userContentController.add(URLInterceptor.shared, name: "cliqzTrackingProtection")
+        configuration.userContentController.add(URLInterceptor.shared, name: "cliqzTrackingProtectionPostLoad")
         return configuration
     }()
     

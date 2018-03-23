@@ -1,6 +1,6 @@
 console.log("script injected");
 (function(){
- var messageHandler = window.webkit.messageHandlers.focusTrackingProtection;
+ var messageHandler = window.webkit.messageHandlers.cliqzTrackingProtection;
  var oldLog = console.log;
  console.log = function(message) {
     messageHandler.postMessage({ msg: message });

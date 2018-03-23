@@ -18,7 +18,6 @@
 		AF3B5C4C201A135400EF37EA /* BubbleLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */; };
 		AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */; };
 		AF3B5C54201A254C00EF37EA /* URIFixup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B5C53201A254C00EF37EA /* URIFixup.swift */; };
-		AF3DC4852032E95600F54C3C /* Antitracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DC4842032E95600F54C3C /* Antitracking.swift */; };
 		AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */; };
 		AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */; };
 		AF89862C1FFF795200B372E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF89862B1FFF795200B372E0 /* AppDelegate.swift */; };
@@ -36,7 +35,7 @@
 		AFB456BF205FBF8700449D36 /* ghostery_content_blocker_split.json in Resources */ = {isa = PBXBuildFile; fileRef = AFB456BE205FBF8700449D36 /* ghostery_content_blocker_split.json */; };
 		AFB456C1205FCC2000449D36 /* TrackersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB456C0205FCC2000449D36 /* TrackersController.swift */; };
 		AFB456C3205FE82D00449D36 /* URLInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB456C2205FE82D00449D36 /* URLInterceptor.swift */; };
-		AFB456C5205FE87B00449D36 /* GhosteryBlockListHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB456C4205FE87B00449D36 /* GhosteryBlockListHelper.swift */; };
+		AFB456C5205FE87B00449D36 /* BlockListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB456C4205FE87B00449D36 /* BlockListManager.swift */; };
 		AFB456C7205FE8A800449D36 /* ContentBlockerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB456C6205FE8A800449D36 /* ContentBlockerHelper.swift */; };
 		AFB456C9205FEE0F00449D36 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB456C8205FEE0F00449D36 /* UserPreferences.swift */; };
 		AFB456CB205FF41400449D36 /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB456CA205FF41400449D36 /* TrackerStore.swift */; };
@@ -72,7 +71,6 @@
 		AF3B5C49201A135400EF37EA /* BubbleLeftCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleLeftCell.swift; sourceTree = "<group>"; };
 		AF3B5C4A201A135400EF37EA /* BubbleTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleTableView.swift; sourceTree = "<group>"; };
 		AF3B5C53201A254C00EF37EA /* URIFixup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URIFixup.swift; sourceTree = "<group>"; };
-		AF3DC4842032E95600F54C3C /* Antitracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Antitracking.swift; sourceTree = "<group>"; };
 		AF4D8DD3200F612000A6D40B /* CustomWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWKWebView.swift; sourceTree = "<group>"; };
 		AF4D8DD6200F89E300A6D40B /* WebViewHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewHistory.swift; sourceTree = "<group>"; };
 		AF8986281FFF795200B372E0 /* BrowserCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrowserCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,7 +90,7 @@
 		AFB456BE205FBF8700449D36 /* ghostery_content_blocker_split.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ghostery_content_blocker_split.json; sourceTree = "<group>"; };
 		AFB456C0205FCC2000449D36 /* TrackersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersController.swift; sourceTree = "<group>"; };
 		AFB456C2205FE82D00449D36 /* URLInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInterceptor.swift; sourceTree = "<group>"; };
-		AFB456C4205FE87B00449D36 /* GhosteryBlockListHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhosteryBlockListHelper.swift; sourceTree = "<group>"; };
+		AFB456C4205FE87B00449D36 /* BlockListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListManager.swift; sourceTree = "<group>"; };
 		AFB456C6205FE8A800449D36 /* ContentBlockerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentBlockerHelper.swift; sourceTree = "<group>"; };
 		AFB456C8205FEE0F00449D36 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		AFB456CA205FF41400449D36 /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
@@ -160,10 +158,9 @@
 			children = (
 				AFD55579203DC72700292136 /* TrackingManagement */,
 				AFF24897203C25EE0008BFAF /* Assets */,
-				AF3DC4842032E95600F54C3C /* Antitracking.swift */,
 				AFB456C2205FE82D00449D36 /* URLInterceptor.swift */,
 				AFD5559020406D1800292136 /* DomainBlacklist.swift */,
-				AFB456C4205FE87B00449D36 /* GhosteryBlockListHelper.swift */,
+				AFB456C4205FE87B00449D36 /* BlockListManager.swift */,
 				AFB456C6205FE8A800449D36 /* ContentBlockerHelper.swift */,
 			);
 			path = AdBlocker;
@@ -446,7 +443,7 @@
 				AF4D8DD7200F89E300A6D40B /* WebViewHistory.swift in Sources */,
 				AF37010D2017837900798D69 /* TabManager.swift in Sources */,
 				AF4D8DD4200F612000A6D40B /* CustomWKWebView.swift in Sources */,
-				AFB456C5205FE87B00449D36 /* GhosteryBlockListHelper.swift in Sources */,
+				AFB456C5205FE87B00449D36 /* BlockListManager.swift in Sources */,
 				AFB456C9205FEE0F00449D36 /* UserPreferences.swift in Sources */,
 				AFB456C3205FE82D00449D36 /* URLInterceptor.swift in Sources */,
 				AF00F21020064F0B001C070D /* CIToolBar.swift in Sources */,
@@ -467,7 +464,6 @@
 				AF3B5C4D201A135400EF37EA /* BubbleTableView.swift in Sources */,
 				AFB456C7205FE8A800449D36 /* ContentBlockerHelper.swift in Sources */,
 				AFD5558B203DC75600292136 /* TrackerListPath.swift in Sources */,
-				AF3DC4852032E95600F54C3C /* Antitracking.swift in Sources */,
 				AFD5559120406D1800292136 /* DomainBlacklist.swift in Sources */,
 				AF8986401FFF7ED500B372E0 /* URLBar.swift in Sources */,
 			);

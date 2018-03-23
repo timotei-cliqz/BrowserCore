@@ -60,27 +60,26 @@ class CustomWKWebView: WKWebView {
         urlObservation = self.observe(\.url, changeHandler: {[unowned self] (webView, change) in
             if let url = webView.url, url.absoluteString != self._last_url_string {
                 //URL changed.
-                debugPrint("new URL = \(url.absoluteString)")
-                //if self.updateAntitracking(url: url) == .willNotReload {
-                    NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
-                    self.internalHistory?.update()
-                //}
+                //debugPrint("new URL = \(url.absoluteString)")
+                NotificationCenter.default.post(name: NewURLNotification, object: self, userInfo: ["url": url])
+                self.internalHistory?.update()
                 self._last_url_string = url.absoluteString
             }
         })
         
         setupUserScripts()
-        //Antitracking.shared.enable(on: self)
         setupBlocking()
         
         NotificationCenter.default.addObserver(self, selector: #selector(trackersChanged), name: trackerViewDismissedNotification.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(trackersChanged), name: trackersLoadedNotification, object: nil)
     }
     
     func setupBlocking() {
         
         if UserPreferences.instance.blockingMode == .all {
-            ContentBlockerHelper.shared.getBlockLists(callback: { (lists) in
+            BlockListManager.getBlockLists(forIdentifiers: BlockListIdentifiers.antitrackingIdentifiers, callback: { (lists) in
                 DispatchQueue.main.async {
+                    //Remember to add the adblocking rules if you remove all blocklists
                     self.configuration.userContentController.removeAllContentRuleLists()
                     lists.forEach(self.configuration.userContentController.add)
                     debugPrint("Antitracking done")
@@ -89,46 +88,28 @@ class CustomWKWebView: WKWebView {
             })
         } else if UserPreferences.instance.blockingMode == .selected {
             let appIds = TrackerStore.shared.all()
-            GhosteryBlockListHelper.shared.getBlockLists(appIds: appIds) { (lists) in
+            BlockListManager.getBlockLists(appIds: appIds, callback: { (lists) in
                 DispatchQueue.main.async {
+                    //Remember to add the adblocking rules if you remove all blocklists
                     self.configuration.userContentController.removeAllContentRuleLists()
                     lists.forEach(self.configuration.userContentController.add)
                     debugPrint("Antitracking done")
                     //self.reload()
                 }
-            }
+            })
         }
         else if UserPreferences.instance.blockingMode == .none {
             DispatchQueue.main.async {
+                //Remember to add the adblocking rules if you remove all blocklists
                 self.configuration.userContentController.removeAllContentRuleLists()
             }
         }
+
     }
     
     @objc func trackersChanged(_ notification: Notification) {
         setupBlocking()
     }
-    
-//    fileprivate func updateAntitracking(url: URL?) -> CustomResponse {
-//        
-//        guard let url = url else { return .willNotReload }
-//        
-//        //debugPrint("update antitracking url = \(url.absoluteString)")
-//        
-//        let shouldAntitrack = DomainBlacklist.shouldAntitrackingBeEnabled(on: url.host)
-//        
-//        if shouldAntitrack != isAntiTrackingOn {
-//            if shouldAntitrack == true {
-//                //Antitracking.shared.enable(on: self)
-//            } else {
-//                //Antitracking.shared.disable(on: self)
-//            }
-//            return .willReload
-//        }
-//       
-//        return .willNotReload
-//        
-//    }
     
     fileprivate func setupUserScripts() {
         

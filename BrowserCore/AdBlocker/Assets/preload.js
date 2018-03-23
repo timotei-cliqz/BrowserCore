@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 (function(){
-  var messageHandler = window.webkit.messageHandlers.focusTrackingProtection;
+  var messageHandler = window.webkit.messageHandlers.cliqzTrackingProtection;
   var win = window;
   while (win != win.parent) win = win.parent;
   var pageUrl = win.location.href;

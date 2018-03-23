@@ -45,11 +45,11 @@ class DomainBlacklist {
         return true
     }
     
-    class func setAntitrackingOn(domain: String?, on: Bool) {
+    class func setAntitracking(on: Bool, domain: String?) {
         change(domain: domain, key: .antitracking, turnOn: on)
     }
     
-    class func setAdblockingOn(domain: String?, on: Bool) {
+    class func setAdblocking(on: Bool, domain: String?) {
         change(domain: domain, key: .adblocking, turnOn: on)
     }
     

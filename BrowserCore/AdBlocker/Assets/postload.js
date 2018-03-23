@@ -6,7 +6,7 @@ var win = window;
 while (win != win.parent) win = win.parent;
 var pageUrl = win.location.href;
 
-var messageHandler = window.webkit.messageHandlers.focusTrackingProtectionPostLoad
+var messageHandler = window.webkit.messageHandlers.cliqzTrackingProtectionPostLoad
 var sendMessage = function(url) { messageHandler.postMessage({ url: url, location: pageUrl }) }
 
 // Send back the sources of every script and image in the dom back to the host applicaiton
